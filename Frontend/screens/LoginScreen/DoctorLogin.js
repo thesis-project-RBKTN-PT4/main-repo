@@ -7,7 +7,6 @@ const DoctorLogin = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Perform login logic here
     console.log('Email:', email);
     console.log('Password:', password);
   };
