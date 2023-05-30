@@ -38,6 +38,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `easymed`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `role` ENUM('patient', 'doctor') NOT NULL,
@@ -61,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `easymed`.`doctors` (
   `experience` INT NULL DEFAULT NULL,
   `rating` DECIMAL(3,2) NULL DEFAULT NULL,
   `address` VARCHAR(255) NULL DEFAULT NULL,
+  `about` VARCHAR(255) NULL DEFAULT NULL,
   `x_coordinate` DECIMAL(10,6) NULL DEFAULT NULL,
   `y_coordinate` DECIMAL(10,6) NULL DEFAULT NULL,
   `picture` BLOB NULL DEFAULT NULL,
