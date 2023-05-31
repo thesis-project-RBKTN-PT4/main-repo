@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const patient = require("../Controllers/patients");
 
-router.get("/", (req, res) => {
-  res.send("patient is not created yet");
-});
+router.post("/booking", patient.MakeAppointment);
+router.put("/booking", patient.modifyAppointment);
 
 module.exports = router;

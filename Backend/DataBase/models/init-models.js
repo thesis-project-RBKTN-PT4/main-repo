@@ -1,6 +1,7 @@
 var DataTypes = require("sequelize").DataTypes;
 var _appointments = require("./appointments");
 var _doctors = require("./doctors");
+var _licence = require("./licence");
 var _patients = require("./patients");
 var _reviews = require("./reviews");
 var _users = require("./users");
@@ -10,6 +11,7 @@ var _workinghours = require("./workinghours");
 function initModels(sequelize) {
   var appointments = _appointments(sequelize, DataTypes);
   var doctors = _doctors(sequelize, DataTypes);
+  var licence = _licence(sequelize, DataTypes);
   var patients = _patients(sequelize, DataTypes);
   var reviews = _reviews(sequelize, DataTypes);
   var users = _users(sequelize, DataTypes);
@@ -36,6 +38,7 @@ function initModels(sequelize) {
   return {
     appointments,
     doctors,
+    licence,
     patients,
     reviews,
     users,
