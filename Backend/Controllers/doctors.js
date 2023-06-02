@@ -2,7 +2,9 @@ const bcrypt = require("bcrypt");
 const db = require("../DataBase/models/index");
 const User = db.users;
 const Doctor = db.doctors;
+
 const Appointment = db.appointments;
+
 const WorkingHours = db.workinghours;
 const WorkingDays = db.workingdays;
 const jwt = require("jsonwebtoken");
@@ -20,6 +22,7 @@ const loginDoctor = async (req, res) => {
     }
   }
 };
+
 const updateDoctorProfile = async (req, res) => {
   const id = req.params.id; // doctor id
   const {
@@ -57,6 +60,7 @@ const getWorkingDaysByDoctorId = async (req, res) => {
     res.status(200).json({ workdays, message: "here are your working days!" });
   else res.send("you did not add any working days  ");
 };
+
 const addWorkingDays = async (req, res) => {
   const { day, doctor_id } = req.body;
   const duplicate = await WorkingDays.findOne({
@@ -76,6 +80,7 @@ const addWorkingDays = async (req, res) => {
     }
   }
 };
+
 const deleteWorkingDays = async (req, res) => {
   const id = req.params.id;
   const day = await WorkingDays.findByPk(id);
@@ -98,6 +103,7 @@ const getWorkingHoursByDoctorId = async (req, res) => {
       .json({ workhours, message: "here are your working Hours!" });
   else res.send("you did not add any working hours schedule yet");
 };
+
 const addWorkingHours = async (req, res) => {
   const { end_time, start_time, day_id, doctor_id } = req.body;
 
@@ -128,6 +134,9 @@ const addWorkingHours = async (req, res) => {
     }
   }
 };
+
+module.exports = { loginDoctor, addWorkingDays, addWorkingHours };
+
 const updateWorkingHours = async (req, res) => {
   const id = req.params.id; // doctor id
   const { day_id, start_time, end_time } = req.body;
@@ -188,3 +197,4 @@ module.exports = {
   updateWorkingHours,
   updateDoctorProfile
 };
+

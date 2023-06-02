@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const doctor = require("../Controllers/doctors");
+
 const patient =require('../Controllers/patients')
 
 
@@ -16,5 +17,6 @@ router.post("/appointment",patient.MakeAppointment)
 router.get("/appointments/:id", doctor.allAppointments)
 router.delete("/appointment/:id",patient.deleteAppointment)
 router.delete("/appointments",doctor.deleteMultipleAppointmlents)
+
 
 module.exports = router;

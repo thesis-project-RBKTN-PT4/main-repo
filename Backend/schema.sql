@@ -20,12 +20,14 @@ USE `easymed` ;
 -- -----------------------------------------------------
 -- Table `easymed`.`users`
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `easymed`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `role` ENUM('patient', 'doctor') NOT NULL,
+
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -55,7 +57,9 @@ CREATE TABLE IF NOT EXISTS `easymed`.`patients` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+
 AUTO_INCREMENT = 5
+
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -115,6 +119,21 @@ CREATE TABLE IF NOT EXISTS `easymed`.`appointments` (
     ON DELETE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `easymed`.`licence`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `easymed`.`licence` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` VARCHAR(45) NOT NULL,
+  `doctor_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `number_UNIQUE` (`number` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
