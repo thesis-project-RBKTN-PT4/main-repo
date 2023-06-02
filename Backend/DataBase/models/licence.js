@@ -1,33 +1,25 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('licence', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    number: {
       type: DataTypes.STRING(45),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(255),
       allowNull: false,
-      unique: "email_UNIQUE"
+      unique: "number_UNIQUE"
     },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    role: {
-      type: DataTypes.ENUM('patient','doctor'),
+    doctor_name: {
+      type: DataTypes.STRING(45),
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'users',
-    timestamps: true,
+    tableName: 'licence',
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
@@ -38,11 +30,11 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "email_UNIQUE",
+        name: "number_UNIQUE",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "email" },
+          { name: "number" },
         ]
       },
     ]
