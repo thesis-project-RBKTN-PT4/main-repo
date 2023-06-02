@@ -21,7 +21,7 @@ USE `easymed` ;
 -- Table `easymed`.`patients`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `easymed`.`patients` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255) NULL DEFAULT NULL,
   `phone_number` VARCHAR(20) NULL DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `easymed`.`users` (
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -55,7 +55,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `easymed`.`doctors`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `easymed`.`doctors` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NULL DEFAULT NULL,
   `name` VARCHAR(255) NOT NULL,
   `specialization` VARCHAR(255) NULL DEFAULT NULL,
@@ -100,6 +100,21 @@ CREATE TABLE IF NOT EXISTS `easymed`.`appointments` (
     FOREIGN KEY (`doctor_id`)
     REFERENCES `easymed`.`doctors` (`id`))
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `easymed`.`licence`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `easymed`.`licence` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` VARCHAR(45) NOT NULL,
+  `doctor_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `number_UNIQUE` (`number` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 

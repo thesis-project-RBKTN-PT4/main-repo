@@ -6,12 +6,16 @@ import Checkbox from "expo-checkbox"
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
 
-const DoctorSignup = ({ navigation }) => {
+const DoctorSignUp = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
+           
             <View style={{ flex: 1, marginHorizontal: 22 }}>
+          
+
                 <View style={{ marginVertical: 22 }}>
                     <Text style={{
                         fontSize: 22,
@@ -35,6 +39,7 @@ const DoctorSignup = ({ navigation }) => {
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
+                        backgroundColor: COLORS.white,
                         alignItems: "center",
                         justifyContent: "center",
                         paddingLeft: 22
@@ -58,6 +63,7 @@ const DoctorSignup = ({ navigation }) => {
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
+                        backgroundColor: COLORS.white,
                         alignItems: "center",
                         justifyContent: "center",
                         paddingLeft: 22
@@ -82,6 +88,7 @@ const DoctorSignup = ({ navigation }) => {
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
+                        backgroundColor: COLORS.white,
                         alignItems: "center",
                         flexDirection: "row",
                         justifyContent: "space-between",
@@ -119,6 +126,7 @@ const DoctorSignup = ({ navigation }) => {
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
+                        backgroundColor: COLORS.white,
                         alignItems: "center",
                         justifyContent: "center",
                         paddingLeft: 22
@@ -160,6 +168,7 @@ const DoctorSignup = ({ navigation }) => {
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
+                        backgroundColor: COLORS.white,
                         alignItems: "center",
                         justifyContent: "center",
                         paddingLeft: 22
@@ -236,7 +245,7 @@ const DoctorSignup = ({ navigation }) => {
                 }}>
                     <Text style={{ fontSize: 16, color: COLORS.black }}>Already have an account</Text>
                     <Pressable
-                        onPress={() => navigation.navigate("Login")}
+                        onPress={() => navigation.navigate("DoctorLogin")}
                     >
                         <Text style={{
                             fontSize: 16,
@@ -251,4 +260,4 @@ const DoctorSignup = ({ navigation }) => {
     )
 }
 
-export default DoctorSignup
+export default DoctorSignUp

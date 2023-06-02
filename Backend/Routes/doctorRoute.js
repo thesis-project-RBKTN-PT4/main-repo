@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const doctor = require("../Controllers/doctors");
 
-router.get("/", (req, res) => {
-  res.send("doctor is not created yet");
-});
+router.post("/", doctor.loginDoctor);
+router.post("/workdays", doctor.addWorkingDays);
+router.post("/workhours", doctor.addWorkingHours);
 
 module.exports = router;
