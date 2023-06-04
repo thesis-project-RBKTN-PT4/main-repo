@@ -46,9 +46,12 @@ const createUser = async (req, res) => {
 
   if (user.role == "patient") {
     const patient = await Patient.create({
+
       name: name,
       address: address,
       phone_number: phone_number,
+      userId: user.id
+
     });
     if (patient) {
       res
@@ -90,8 +93,13 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const id = req.params.id;
   const user = await User.findByPk(id);
-  user ? user.destroy() : res.send("user not found");
-  res.status(200).send("User deleted successfully");
+
+  if (user) {
+    await user.destroy()
+    res.status(200).send("User deleted successfully")
+  }  
+   else res.send("user not found") 
+ 
 };
 
 module.exports = { allusers, oneuser, createUser, deleteUser };
