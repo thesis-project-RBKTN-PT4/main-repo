@@ -2,9 +2,14 @@ const db = require("../DataBase/models/index");
 const User = db.users;
 const Patient=db.patients;
 const Doctor = db.doctors;
+<<<<<<< HEAD
+=======
+
+const WorkingHours = db.workinghours;
+const WorkingDays = db.workingdays;
+>>>>>>> 5085bf5fcc8af835c07618a92a54628d491ad75d
 const Appointment = db.appointments;
 const Review = db.reviews;
-
 
 //  appointments controllers functions
 const myAppointmentsHistory = async (req, res) => {
@@ -29,6 +34,7 @@ const MakeAppointment = async (req, res) => {
     where: { appointment_date, appointment_time, doctor_id },
   });
 
+<<<<<<< HEAD
   if (reserved && reserved.status === "Booked") {
     res.status(400).send("appointment time is already reserved!");
   } else {
@@ -43,8 +49,26 @@ const MakeAppointment = async (req, res) => {
       res
         .status(200)
         .json({ appointment, message: "appointment booked sucessfully!" });
+=======
+  if (reserved.status == "booked") {
+    if (reserved && reserved.status === "Booked") {
+      res.status(400).send("appointment time is already reserved!");
+>>>>>>> 5085bf5fcc8af835c07618a92a54628d491ad75d
     } else {
-      res.status(400).send("Invalid or missing input !");
+      const appointment = await Appointment.create({
+        doctor_id,
+        appointment_date,
+        appointment_time,
+        status: "Booked",
+        patient_id,
+      });
+      if (appointment) {
+        res
+          .status(200)
+          .json({ appointment, message: "appointment booked sucessfully!" });
+      } else {
+        res.status(400).send("Invalid or missing input !");
+      }
     }
   }
 };
@@ -141,7 +165,7 @@ const addreview = async (req, res) => {
   }
 };
 const getMyReviews = async (req, res) => {
-  const patient_id = req.params.id; 
+  const patient_id = req.params.id;
   const myReviews = await Review.findAll({ where: { patient_id } });
   myReviews
     ? res.status(200).json({ myReviews, message: "here are your reviews" })
@@ -161,7 +185,9 @@ const updateReview = async (req, res) => {
   const myReview = await Review.findByPk(id);
   if (myReview) {
     await myReview.update({ comment, rating });
-    res.status(200).json({myReview,message:"your review was updated successfully!"});
+    res
+      .status(200)
+      .json({ myReview, message: "your review was updated successfully!" });
   } else res.status(400).send("missing or invalid inputs");
 };
 //update profile
@@ -183,6 +209,23 @@ const updatePatientProfile = async (req, res) => {
     res.status(200).json({newProfile,message:"profile updated successfully"})
   }
   else res.status(400).send('something wrong!')
+};
+
+//update profile
+const updatePatientProfile = async (req, res) => {
+  const id = req.params.id; // patient id
+  const { address, name, phone_number } = req.body;
+  const currentProfile = await Patient.findByPk(id);
+  if (currentProfile) {
+    const newProfile = await currentProfile.update({
+      address,
+      name,
+      phone_number,
+    });
+    res
+      .status(200)
+      .json({ newProfile, message: "profile updated successfully" });
+  } else res.status(400).send("something wrong!");
 };
 
 module.exports = {
