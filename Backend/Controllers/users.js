@@ -6,11 +6,6 @@ const Licence = db.licence;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const allusers = async (req, res) => {
-  const users = await User.findAll();
-  res.status(200).json(users);
-};
-
 const oneuser = async (req, res) => {
   const id = req.params.id;
   const user = await User.findByPk(id);
@@ -44,11 +39,14 @@ const createUser = async (req, res) => {
     password: hashPassword,
   });
 
+  // const Token = jwt.sign(user.id, "adminSecret");
+
   if (user.role == "patient") {
     const patient = await Patient.create({
       name: name,
       address: address,
       phone_number: phone_number,
+      userId: user.id,
     });
     if (patient) {
       res
@@ -74,7 +72,7 @@ const createUser = async (req, res) => {
         address: address,
       });
       if (doctor) {
-        const token = jwt.sign({ user_id: user.id }, "secret");
+        const token = jwt.sign({ user_id: user.id }, "doctorSecret");
         res
           .status(200)
           .send({ doctor, message: "doctor  registered successfully!", token });
@@ -90,8 +88,11 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const id = req.params.id;
   const user = await User.findByPk(id);
-  user ? user.destroy() : res.send("user not found");
-  res.status(200).send("User deleted successfully");
+
+  if (user) {
+    await user.destroy();
+    res.status(200).send("User deleted successfully");
+  } else res.send("user not found");
 };
 
-module.exports = { allusers, oneuser, createUser, deleteUser };
+module.exports = { oneuser, createUser, deleteUser };
