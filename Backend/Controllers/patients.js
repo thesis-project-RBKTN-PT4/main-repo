@@ -186,4 +186,5 @@ module.exports = {
   getMyReviews,
   deleteReview,
   updateReview,
-};
+}
+}
