@@ -5,8 +5,6 @@ const Doctor = db.doctors;
 const WorkingHours = db.workinghours;
 const WorkingDays = db.workingdays;
 const Appointment = db.appointments;
-
-const Appointment = db.appointments;
 const Review = db.reviews;
 
 
@@ -189,4 +187,3 @@ module.exports = {
   deleteReview,
   updateReview,
 };
-
