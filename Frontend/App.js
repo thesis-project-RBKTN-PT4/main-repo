@@ -1,13 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
-import { NativeBaseProvider } from 'native-base';
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import  Profile  from './screens/Profile Patient/Profile';
 
-import DoctorLogin from './screens/LoginScreen/DoctorLogin';
+const Stack = createNativeStackNavigator();
+
 export default function App() {
+  
   return (
-    <NativeBaseProvider>
-    <DoctorLogin />
-  </NativeBaseProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false
+          }}
+        /> 
+        {/* <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false
+          }}
+        /> */}
+        {/* <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{
+            headerShown: false
+          }}
+        /> */}
+   </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
