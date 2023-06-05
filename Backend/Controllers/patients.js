@@ -1,9 +1,7 @@
 const db = require("../DataBase/models/index");
 const User = db.users;
+const Patient=db.patients;
 const Doctor = db.doctors;
-
-const WorkingHours = db.workinghours;
-const WorkingDays = db.workingdays;
 const Appointment = db.appointments;
 const Review = db.reviews;
 
@@ -24,7 +22,6 @@ const myAppointmentsHistory = async (req, res) => {
       );
 };
 
-
 const MakeAppointment = async (req, res) => {
   const { doctor_id, appointment_date, appointment_time, patient_id } =
     req.body;
@@ -32,11 +29,7 @@ const MakeAppointment = async (req, res) => {
     where: { appointment_date, appointment_time, doctor_id },
   });
 
-
-  if (reserved.status == "booked") {
-
   if (reserved && reserved.status === "Booked") {
-
     res.status(400).send("appointment time is already reserved!");
   } else {
     const appointment = await Appointment.create({
@@ -69,26 +62,21 @@ const modifyAppointment = async (req, res) => {
   });
   if (myAppointment) {
     const targetAppointment = await Appointment.findOne({
-
-
       where: { appointment_date, appointment_time },
     });
     if (!targetAppointment || targetAppointment.status !== "Booked") {
-   myAppointment.appointment_date =
+      myAppointment.appointment_date =
         appointment_date || myAppointment.appointment_date;
       myAppointment.appointment_time =
         appointment_time || myAppointment.appointment_time;
       myAppointment.status = status || myAppointment.status;
 
-
       await myAppointment.save();
-
 
       res
         .status(200)
         .json({ myAppointment, message: "appointment modified successfully!" });
     } else {
-
       res.status(400).send("requested appointment is already reserved!");
     }
   } else {
@@ -176,8 +164,29 @@ const updateReview = async (req, res) => {
     res.status(200).json({myReview,message:"your review was updated successfully!"});
   } else res.status(400).send("missing or invalid inputs");
 };
+//update profile
+const updatePatientProfile = async (req, res) => {
+  const id = req.params.id; // patient id
+  const {
+    address,
+    name,
+    phone_number
+  } = req.body;
+  const currentProfile = await Patient.findByPk(id);
+  if (currentProfile) {
+    const newProfile = await currentProfile.update({
+      address,
+    name,
+    phone_number
+      
+    });
+    res.status(200).json({newProfile,message:"profile updated successfully"})
+  }
+  else res.status(400).send('something wrong!')
+};
 
 module.exports = {
+  updatePatientProfile,
   MakeAppointment,
   modifyAppointment,
   deleteAppointment,
@@ -186,5 +195,4 @@ module.exports = {
   getMyReviews,
   deleteReview,
   updateReview,
-}
-}
+};
