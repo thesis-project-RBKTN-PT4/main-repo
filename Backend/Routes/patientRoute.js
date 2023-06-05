@@ -3,11 +3,15 @@ const router = express.Router();
 const patient = require("../Controllers/patients");
 
 router.get("/booking/:id", patient.myAppointmentsHistory);
-router.post("/booking", patient.MakeAppointment);
-router.put("/booking", patient.modifyAppointment);
-router.delete("/booking", patient.deleteAppointment);
+router
+  .route("/booking")
+  .post(patient.MakeAppointment)
+  .put(patient.modifyAppointment)
+  .delete(patient.deleteAppointment);
 router.post("/review", patient.addreview);
-router.get("/review/:id", patient.getMyReviews);
-router.put("/review/:id", patient.updateReview);
-router.delete("/review/:id", patient.deleteReview);
+router
+  .route("/review/:id")
+  .get(patient.getMyReviews)
+  .put(patient.updateReview)
+  .delete(patient.deleteReview);
 module.exports = router;
