@@ -23,6 +23,7 @@ const DoctorProfile = ({navigation}) => {
      
       <Pressable
         // onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("DoctorLogin")}
         >
         <Image
         source={require("../../assets/retour.png")}

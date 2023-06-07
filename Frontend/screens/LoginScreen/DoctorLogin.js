@@ -4,9 +4,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
+import axios from 'axios';
+import { NavigationContainer } from '@react-navigation/native';
 
 const DoctorLogin = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = (email, password) => {
+        axios
+        .post('http://192.168.100.171:3000/doctor', { email, password })
+        .then(response => {
+          console.log(response.data);
+          //localStorage.setItem("token",response.data.token)
+          //localStorage.setItem("name",response.data.doctor.name)
+          navigation.navigate("DoctorProfile")
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      };
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
             <View style={{ flex: 1, marginHorizontal: 22 }}>
@@ -44,6 +63,8 @@ const DoctorLogin = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                     </View>
                 </View>
@@ -67,6 +88,8 @@ const DoctorLogin = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={password}
+                            onChangeText={setPassword}
                         />
                         <TouchableOpacity
                             onPress={() => setIsPasswordShown(!isPasswordShown)}
@@ -93,6 +116,7 @@ const DoctorLogin = ({ navigation }) => {
                         marginTop: 18,
                         marginBottom: 4,
                     }}
+                    onPress={()=>handleLogin(email, password)}
                 />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>

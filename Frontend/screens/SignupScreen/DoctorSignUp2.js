@@ -5,15 +5,27 @@ import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
-import DoctorSignUp2 from './DoctorSignUp2.js';
 
-const DoctorSignUp = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const [email, setEmail] = useState('');
-    const [licence, setLicence] = useState('');
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
+const DoctorSignUp2 = ({ navigation }) => {
+    const [isChecked, setIsChecked] = useState(false);
+    const [name, setName] = useState('');
+    const [experience, setExperience] = useState('');
+    const [specialization, setSpecialization] = useState('');
+    const [about, setAbout] = useState('');
+
+    const handleSignUp = (email, password, role, name, number, picture, address, specialization, experience, phone_number, about) => {
+        axios
+        .post('http://192.168.100.171:3000/user', { email, password, role, name, number, picture, address, specialization, experience, phone_number, about })
+        .then(response => {
+          console.log(response.data);
+          //localStorage.setItem("token",response.data.token)
+          //localStorage.setItem("name",response.data.doctor.name)
+          navigation.navigate("DoctorProfile")
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -34,7 +46,7 @@ const DoctorSignUp = ({ navigation }) => {
                     <Text style={{
                         fontSize: 16,
                         color: COLORS.black
-                    }}>Create your account</Text>
+                    }}>Step 2</Text>
                 </View>
 
                 <View style={{ marginBottom: 12, marginTop:24 }}>
@@ -50,13 +62,13 @@ const DoctorSignUp = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
-                            placeholder='Enter your Medical License'
+                            placeholder='Enter your Name'
                             placeholderTextColor={COLORS.black}
                             style={{
                                 width: "100%"
                             }}
-                            value={licence}
-                            onChangeText={setLicence}
+                            value={name}
+                            onChangeText={setName}
                         />
                     </View>
                 </View>
@@ -76,14 +88,14 @@ const DoctorSignUp = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
-                            placeholder='Enter your email address'
+                            placeholder='Enter your specialization'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
                                 width: "100%"
                             }}
-                            value={email}
-                            onChangeText={setEmail}
+                            value={specialization}
+                            onChangeText={setSpecialization}
                         />
                     </View>
                 </View>
@@ -103,27 +115,16 @@ const DoctorSignUp = ({ navigation }) => {
                         justifyContent: "space-between",
                         paddingLeft: 22
                     }}>
-                        <TextInput
-                            placeholder='+216'
-                            placeholderTextColor={COLORS.black}
-                            keyboardType='numeric'
-                            style={{
-                                width: "12%",
-                                borderRightWidth: 1,
-                                borderLeftColor: COLORS.grey,
-                                height: "100%"
-                            }}
-                        />
 
                         <TextInput
-                            placeholder='Enter your phone number'
+                            placeholder='Enter your number of years of experience'
                             placeholderTextColor={COLORS.black}
                             keyboardType='numeric'
                             style={{
                                 width: "80%"
                             }}
-                            value={phone}
-                            onChangeText={setPhone}
+                            value={experience}
+                            onChangeText={setExperience}
                         />
                     </View>
                 </View>
@@ -141,93 +142,41 @@ const DoctorSignUp = ({ navigation }) => {
                         alignItems: "center",
                         justifyContent: "center",
                         paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Enter your password'
+                    }}> 
+                    <TextInput
+                            placeholder='About...'
                             placeholderTextColor={COLORS.black}
-                            secureTextEntry={isPasswordShown}
+                            keyboardType='numeric'
                             style={{
                                 width: "100%"
                             }}
-                            value={password}
-                            onChangeText={setPassword}
-                        />
-
-                        <TouchableOpacity
-                            onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: "absolute",
-                                right: 12
-                            }}
-                        >
-                            {
-                                isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                                ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
-                                )
-                            }
-
-                        </TouchableOpacity>
+                            value={about}
+                            onChangeText={setAbout}
+                        /> 
                     </View>
                 </View>
+                <View style={{
+                    flexDirection: 'row',
+                    marginVertical: 6
+                }}>
+                    <Checkbox
+                        style={{ marginRight: 8 }}
+                        value={isChecked}
+                        onValueChange={setIsChecked}
+                        color={isChecked ? COLORS.primary : undefined}
+                    />
 
-                <View style={{ marginBottom: 12 }}>
-                   
-
-                    <View style={{
-                        width: "100%",
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        backgroundColor: COLORS.white,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 22
-                    }}>
-                        <TextInput
-                            placeholder='Confirm your password'
-                            placeholderTextColor={COLORS.black}
-                            secureTextEntry={isPasswordShown}
-                            style={{
-                                width: "100%"
-                            }}
-                            value={confirm}
-                            onChangeText={setConfirm}
-                        />
-
-                        <TouchableOpacity
-                            onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: "absolute",
-                                right: 12
-                            }}
-                        >
-                            {
-                                isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
-                                ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
-                                )
-                            }
-
-                        </TouchableOpacity>
-                    </View>
+                    <Text>I aggree to the terms and conditions</Text>
                 </View>
 
-                <TouchableOpacity
-                onPress={() => navigation.navigate("DoctorSignUp2")}
-                style={{
-                    alignSelf: 'center',
-                    backgroundColor: COLORS.primary,
-                    borderRadius: 20,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                }}
-            >
-                <Text style={{ color: COLORS.white, fontSize: 14 }}>Next</Text>
-            </TouchableOpacity>
+                <Button
+                    title="Sign Up"
+                    filled
+                    style={{
+                        marginTop: 18,
+                        marginBottom: 4,
+                    }}
+                />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
                     <View
@@ -265,4 +214,4 @@ const DoctorSignUp = ({ navigation }) => {
     )
 }
 
-export default DoctorSignUp
+export default DoctorSignUp2
