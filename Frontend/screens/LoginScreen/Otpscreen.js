@@ -5,6 +5,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import firebase from'firebase/compat/app';
 import 'firebase/compat/auth';
 
+
 firebase.initializeApp({
     apiKey: "AIzaSyAzVMoT5X1D75D-mBYxeyt-_D2AA6UscqM",
     authDomain: "hellodoctor-592d2.firebaseapp.com",
