@@ -18,6 +18,7 @@ export default function App() {
   return (
      <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen options={{headerShown:false}} name="Register" component={Register} />
         <Stack.Screen options={{headerShown:false}} name="DoctorSignUp" component={DoctorSignUp} />
         <Stack.Screen options={{headerShown:false}} name="DoctorSignUp2" component={DoctorSignUp2} />
         <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />

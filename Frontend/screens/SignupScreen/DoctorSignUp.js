@@ -15,6 +15,14 @@ const DoctorSignUp = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
 
+    const passedData = (email, licence, phone, password)=> {
+        return {
+            email:email,
+            licence:licence,
+            phone:phone,
+            password:password
+        }
+    }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
            
@@ -217,7 +225,7 @@ const DoctorSignUp = ({ navigation }) => {
                 </View>
 
                 <TouchableOpacity
-                onPress={() => navigation.navigate("DoctorSignUp2")}
+                onPress={() => navigation.navigate("DoctorSignUp2", {stepOneData:passedData(email,licence,phone,password)})}
                 style={{
                     alignSelf: 'center',
                     backgroundColor: COLORS.primary,

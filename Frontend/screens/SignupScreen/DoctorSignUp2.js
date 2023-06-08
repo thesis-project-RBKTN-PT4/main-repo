@@ -6,20 +6,21 @@ import Checkbox from "expo-checkbox"
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
 
-const DoctorSignUp2 = ({ navigation }) => {
+const DoctorSignUp2 = ({ navigation, stepOneData }) => {
     const [isChecked, setIsChecked] = useState(false);
     const [name, setName] = useState('');
     const [experience, setExperience] = useState('');
     const [specialization, setSpecialization] = useState('');
     const [about, setAbout] = useState('');
 
-    const handleSignUp = (email, password, role, name, number, picture, address, specialization, experience, phone_number, about) => {
-        axios
-        .post('http://192.168.100.171:3000/user', { email, password, role, name, number, picture, address, specialization, experience, phone_number, about })
+    const handleSignUp = (role, name, picture, address, specialization, experience, about) => {
+        email = stepOneData.email;
+        password = stepOneData.password;
+        number = stepOneData.licence;
+        phone_number = stepOneData.phone;
+        axios.post('http://192.168.100.171:3000/user', { email, password, role, name, number, picture, address, specialization, experience, phone_number, about })
         .then(response => {
           console.log(response.data);
-          //localStorage.setItem("token",response.data.token)
-          //localStorage.setItem("name",response.data.doctor.name)
           navigation.navigate("DoctorProfile")
         })
         .catch(error => {
