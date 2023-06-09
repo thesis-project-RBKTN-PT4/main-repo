@@ -11,13 +11,15 @@ const DoctorSignUp2 = ({ navigation, stepOneData }) => {
     const [name, setName] = useState('');
     const [experience, setExperience] = useState('');
     const [specialization, setSpecialization] = useState('');
+    const [address, setAddress] = useState('');
     const [about, setAbout] = useState('');
 
-    const handleSignUp = (role, name, picture, address, specialization, experience, about) => {
+    const handleSignUp = (name, picture, address, specialization, experience, about) => {
         email = stepOneData.email;
         password = stepOneData.password;
         number = stepOneData.licence;
         phone_number = stepOneData.phone;
+        role = stepOneData.role;
         axios.post('http://192.168.100.171:3000/user', { email, password, role, name, number, picture, address, specialization, experience, phone_number, about })
         .then(response => {
           console.log(response.data);
@@ -102,6 +104,33 @@ const DoctorSignUp2 = ({ navigation, stepOneData }) => {
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
+                
+
+                    <View style={{
+                        width: "100%",
+                        height: 48,
+                        borderColor: COLORS.black,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        backgroundColor: COLORS.white,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        paddingLeft: 22
+                    }}>
+                        <TextInput
+                            placeholder='Enter your adress'
+                            placeholderTextColor={COLORS.black}
+                            keyboardType='email-address'
+                            style={{
+                                width: "100%"
+                            }}
+                            value={address}
+                            onChangeText={setAddress}
+                        />
+                    </View>
+                </View>
+
+                <View style={{ marginBottom: 12 }}>
                    
 
                     <View style={{
@@ -177,6 +206,7 @@ const DoctorSignUp2 = ({ navigation, stepOneData }) => {
                         marginTop: 18,
                         marginBottom: 4,
                     }}
+                    onPress={()=>handleSignUp(name, address, specialization, experience, about)}
                 />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>

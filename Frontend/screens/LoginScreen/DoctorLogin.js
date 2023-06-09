@@ -6,17 +6,30 @@ import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
 import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const DoctorLogin = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const setDataToLocalStorage = async (key, value) => {
+        try {
+          await AsyncStorage.setItem(key, value)
+          console.log('Data set successfully!')
+        } catch (error) {
+          console.log('Error setting data:', error)
+        }
+      };      
+
     const handleLogin = (email, password) => {
         axios
         .post('http://192.168.100.171:3000/doctor', { email, password })
         .then(response => {
           console.log(response.data);
+          setDataToLocalStorage("token",response.data.token)
+          setDataToLocalStorage("name",response.data.doctor.name)
           //localStorage.setItem("token",response.data.token)
           //localStorage.setItem("name",response.data.doctor.name)
           navigation.navigate("DoctorProfile")

@@ -15,8 +15,25 @@ import EditDoctorProfile from "./EditDoctorProfile";
 import DoctorLogin from "../LoginScreen/DoctorLogin";
 import COLORS from "../../components/Colors";
 import StarRating from "react-native-star-rating";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DoctorProfile = ({navigation}) => {
+
+  const getDataFromLocalStorage = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key)
+      if (value !== null) {
+        const parsedValue = JSON.parse(value);
+        console.log('Data retrieved successfully:', parsedValue)
+      } else {
+        console.log('No data found for the given key')
+      }
+    } catch (error) {
+      console.log('Error retrieving data:', error)
+    }
+    return parsedValue
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.headingContainer}>
@@ -40,7 +57,7 @@ const DoctorProfile = ({navigation}) => {
           source={require("../../assets/doctor.png")}
           style={styles.profileImage}
         />
-        <Text style={styles.name}>DR. Ben Hmida</Text>
+        <Text style={styles.name}>DR. Mouna</Text>
       </View>
 
       {/* Profile about */}

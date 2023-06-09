@@ -2,12 +2,12 @@ import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react
 import React, { useState } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox"
-import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
-import DoctorSignUp2 from './DoctorSignUp2.js';
+import { useNavigation } from '@react-navigation/native';
 
-const DoctorSignUp = ({ navigation }) => {
+const DoctorSignUp = ({ route }) => {
+    const {role} = route.params
+    const navigation = useNavigation()
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const [email, setEmail] = useState('');
     const [licence, setLicence] = useState('');
@@ -15,14 +15,17 @@ const DoctorSignUp = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
 
-    const passedData = (email, licence, phone, password)=> {
+    const passedData = (email, licence, phone, password) => {
+        console.log(role)
         return {
             email:email,
             licence:licence,
             phone:phone,
-            password:password
+            password:password,
+            role:role
         }
     }
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
            
