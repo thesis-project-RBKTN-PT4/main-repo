@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-firebase/app": "^17.5.0",
     "@react-native-firebase/auth": "^17.5.0",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.16",
+    "axios": "^1.4.0",
     "expo": "~48.0.15",
     "expo-checkbox": "^2.3.1",
     "expo-status-bar": "~1.4.4",

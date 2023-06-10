@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -15,14 +15,32 @@ import EditDoctorProfile from "./EditDoctorProfile";
 import DoctorLogin from "../LoginScreen/DoctorLogin";
 import COLORS from "../../components/Colors";
 import StarRating from "react-native-star-rating";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DoctorProfile = ({navigation}) => {
+  const [name,setName] = useState('')
+
+  const getDataFromLocalStorage = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key)
+      if (value !== null) {
+        console.log('Data retrieved successfully:', value)
+        setName(value)
+      } else {
+        console.log('No data found for the given key')
+      }
+    } catch (error) {
+      console.log('Error retrieving data:', error)
+    }
+  }
+  getDataFromLocalStorage("name")
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.headingContainer}>
      
       <Pressable
         // onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("DoctorLogin")}
         >
         <Image
         source={require("../../assets/retour.png")}
@@ -39,7 +57,7 @@ const DoctorProfile = ({navigation}) => {
           source={require("../../assets/doctor.png")}
           style={styles.profileImage}
         />
-        <Text style={styles.name}>DR. Ben Hmida</Text>
+        <Text style={styles.name}>DR. {name}</Text>
       </View>
 
       {/* Profile about */}
