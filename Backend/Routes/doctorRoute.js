@@ -5,11 +5,14 @@ const patient = require("../Controllers/patients");
 const auth = require("../middleware/doctor");
 
 router.post("/", doctor.loginDoctor);
-router.post("/workdays", auth.doctorAuth, doctor.addWorkingDays);
-router.post("/workhours", auth.doctorAuth, doctor.addWorkingHours);
+router.post("/workdays", doctor.addWorkingDays);
+router.post("/workhours", doctor.addWorkingHours);
+router
+  .route("/workdays/:id")
+  .get(doctor.getWorkingDaysByDoctorId)
+  .delete(doctor.deleteWorkingDays);
 router
   .route("/workhours/:id")
-  .all(auth.doctorAuth)
   .get(doctor.getWorkingHoursByDoctorId)
   .put(doctor.updateWorkingHours);
 router.post("/appointment", auth.doctorAuth, patient.MakeAppointment);

@@ -30,28 +30,25 @@ const MakeAppointment = async (req, res) => {
     where: { appointment_date, appointment_time, doctor_id },
   });
 
-  if (reserved.status == "booked") {
-    if (reserved && reserved.status === "Booked") {
-      res.status(400).send("appointment time is already reserved!");
+  if (reserved && reserved.status === "Booked") {
+    res.status(400).send("appointment time is already reserved!");
+  } else {
+    const appointment = await Appointment.create({
+      doctor_id,
+      appointment_date,
+      appointment_time,
+      status: "Booked",
+      patient_id,
+    });
+    if (appointment) {
+      res
+        .status(200)
+        .json({ appointment, message: "appointment booked sucessfully!" });
     } else {
-      const appointment = await Appointment.create({
-        doctor_id,
-        appointment_date,
-        appointment_time,
-        status: "Booked",
-        patient_id,
-      });
-      if (appointment) {
-        res
-          .status(200)
-          .json({ appointment, message: "appointment booked sucessfully!" });
-      } else {
-        res.status(400).send("Invalid or missing input !");
-      }
+      res.status(400).send("Invalid or missing input !");
     }
   }
 };
-
 const modifyAppointment = async (req, res) => {
   const {
     appointment_date,
