@@ -33,9 +33,9 @@ const DoctorLogin = ({ navigation }) => {
           navigation.navigate("DoctorProfile")
         })
         .catch(error => {
-          console.error(error);
-        });
-      };
+          console.error(error)
+        })
+      }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
