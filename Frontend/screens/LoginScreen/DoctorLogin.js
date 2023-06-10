@@ -30,8 +30,6 @@ const DoctorLogin = ({ navigation }) => {
           console.log(response.data);
           setDataToLocalStorage("token",response.data.token)
           setDataToLocalStorage("name",response.data.doctor.name)
-          //localStorage.setItem("token",response.data.token)
-          //localStorage.setItem("name",response.data.doctor.name)
           navigation.navigate("DoctorProfile")
         })
         .catch(error => {

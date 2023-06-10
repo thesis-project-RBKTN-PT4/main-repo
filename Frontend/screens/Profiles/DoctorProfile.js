@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -18,22 +18,22 @@ import StarRating from "react-native-star-rating";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DoctorProfile = ({navigation}) => {
+  const [name,setName] = useState('')
 
   const getDataFromLocalStorage = async (key) => {
     try {
       const value = await AsyncStorage.getItem(key)
       if (value !== null) {
-        const parsedValue = JSON.parse(value);
-        console.log('Data retrieved successfully:', parsedValue)
+        console.log('Data retrieved successfully:', value)
+        setName(value)
       } else {
         console.log('No data found for the given key')
       }
     } catch (error) {
       console.log('Error retrieving data:', error)
     }
-    return parsedValue
   }
-
+  getDataFromLocalStorage("name")
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.headingContainer}>
@@ -57,7 +57,7 @@ const DoctorProfile = ({navigation}) => {
           source={require("../../assets/doctor.png")}
           style={styles.profileImage}
         />
-        <Text style={styles.name}>DR. Mouna</Text>
+        <Text style={styles.name}>DR. {name}</Text>
       </View>
 
       {/* Profile about */}
