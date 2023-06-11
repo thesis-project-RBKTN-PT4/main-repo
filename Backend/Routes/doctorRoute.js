@@ -5,6 +5,7 @@ const patient = require("../Controllers/patients");
 const auth = require("../middleware/doctor");
 
 router.post("/", doctor.loginDoctor);
+router.put("/:id",doctor.updateDoctorProfile);
 router.post("/workdays", auth.doctorAuth, doctor.addWorkingDays);
 router.post("/workhours", auth.doctorAuth, doctor.addWorkingHours);
 router

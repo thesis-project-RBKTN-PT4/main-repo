@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import COLORS from '../../components/Colors.js';
 
-const EditDoctorProfile = ({navigation}) => {
-  const [name, setName] = useState('Mehdi');
-  const [specialization, setSpecialization] = useState('Cardiologue');
-  const [experience, setExperience] = useState('3 ans');
-  const [rating, setRating] = useState('');
-  const [address, setAddress] = useState('Clinique Zahra, Ezzahra Ben AROUS');
-  const [about, setAbout] = useState('Looking at life through the eyes of a tire hub Eating seeds as a pastime activityThe toxicity of our city, our city');
-  const [picture, setPicture] = useState('');
+const EditDoctorProfile = ({route, navigation}) => {
+  const {doctor_id} = route.params()
+  const [name, setName] = useState('Mehdi')
+  // const [specialization, setSpecialization] = useState('Cardiologue')
+  const [experience, setExperience] = useState('3 ans')
+  // const [rating, setRating] = useState('')
+  const [address, setAddress] = useState('Clinique Zahra, Ezzahra Ben AROUS')
+  const [about, setAbout] = useState('Looking at life through the eyes of a tire hub Eating seeds as a pastime activityThe toxicity of our city, our city')
+  // const [picture, setPicture] = useState('')
 
-  const handleSaveProfile = () => {
+  const handleSaveProfile = (id,name,experience,address,about) => {
+    axios.put(`http://192.168.100.171:3000/doctor/${id}`, { "name":name, "experience":experience, "address":address, "about":about })
+  .then(response => {
+    console.log(response.data)
+  })
+  .catch(error => {
+    console.error(error)
+  })
  
     console.log('Profile saved:', {
       name,
@@ -48,7 +56,7 @@ const EditDoctorProfile = ({navigation}) => {
      />
    </View>
 
-   <View style={{ marginBottom: 12 }}>
+   {/* <View style={{ marginBottom: 12 }}>
      <Text>Specialization:</Text>
      <TextInput
        value={specialization}
@@ -63,7 +71,7 @@ const EditDoctorProfile = ({navigation}) => {
          paddingVertical: 8,
        }}
      />
-   </View>
+   </View> */}
 
    <View style={{ marginBottom: 12 }}>
      <Text>Experience:</Text>
@@ -120,7 +128,7 @@ const EditDoctorProfile = ({navigation}) => {
      />
    </View>
 
-   <View style={{ marginBottom: 12 }}>
+   {/* <View style={{ marginBottom: 12 }}>
      <Text>Picture:</Text>
      <TextInput
        value={picture}
@@ -138,11 +146,11 @@ const EditDoctorProfile = ({navigation}) => {
      {picture ? (
        <Image source={{ uri: picture }} style={{ width: 100, height: 100, marginTop: 10 }} />
      ) : null}
-   </View>
+   </View> */}
 
    <TouchableOpacity
    onPress={() => {
-    handleSaveProfile();
+    handleSaveProfile(doctor_id,name,experience,address,about);
     navigation.navigate("DoctorProfile");
   }}
      style={{
