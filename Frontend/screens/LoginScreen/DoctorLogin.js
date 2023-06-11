@@ -4,9 +4,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
+import axios from 'axios';
 
 const DoctorLogin = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        try {
+          if (!email || !password) {
+            alert('Error', 'Please fill in all the fields');
+            return;
+          }
+    
+          const response = await axios.post('http://localhost:3000/doctor', {
+            email,
+            password,
+          });
+    
+          // Handle the response and navigate to the appropriate screen
+          // based on the API response
+          
+        } catch (error) {
+          console.error('Error:', error);
+         alert('Error', 'An error occurred during sign up');
+        }
+      };
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
             <View style={{ flex: 1, marginHorizontal: 22 }}>
@@ -93,6 +117,7 @@ const DoctorLogin = ({ navigation }) => {
                         marginTop: 18,
                         marginBottom: 4,
                     }}
+                    onPress={handleLogin}
                 />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>

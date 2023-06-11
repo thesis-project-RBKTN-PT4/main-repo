@@ -17,12 +17,13 @@ export default function App() {
   return (
      <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen options={{headerShown:false}} name="DoctorProfile" component={DoctorProfile} />
+      <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />
+
+      <Stack.Screen options={{headerShown:false}} name="DoctorSignUp" component={DoctorSignUp} />
+       <Stack.Screen options={{headerShown:false}} name="DoctorProfile" component={DoctorProfile} />
         <Stack.Screen options={{headerShown:false}} name="DoctorDetails" component={DoctorDetails} />
         <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
         <Stack.Screen options={{headerShown:false}} name="HomeDoctor" component={HomeDoctor} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorSignUp" component={DoctorSignUp} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />
         <Stack.Screen options={{headerShown:false}} name="EditDoctorProfile" component={EditDoctorProfile} />
       </Stack.Navigator>
     </NavigationContainer>
