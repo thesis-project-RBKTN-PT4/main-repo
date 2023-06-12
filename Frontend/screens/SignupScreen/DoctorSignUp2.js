@@ -1,12 +1,13 @@
-import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Pressable, TextInput} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox"
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
+import axios from 'axios';
 
-const DoctorSignUp2 = ({ navigation, stepOneData }) => {
+const DoctorSignUp2 = ({ route, navigation }) => {
+    const {stepOneData} = route.params
     const [isChecked, setIsChecked] = useState(false);
     const [name, setName] = useState('');
     const [experience, setExperience] = useState('');
@@ -14,21 +15,28 @@ const DoctorSignUp2 = ({ navigation, stepOneData }) => {
     const [address, setAddress] = useState('');
     const [about, setAbout] = useState('');
 
-    const handleSignUp = (name, picture, address, specialization, experience, about) => {
+    const handleSignUp = (name, address, specialization, experience, about) => {
+        console.log(stepOneData)
         email = stepOneData.email;
         password = stepOneData.password;
         number = stepOneData.licence;
         phone_number = stepOneData.phone;
         role = stepOneData.role;
-        axios.post('http://192.168.100.171:3000/user', { email, password, role, name, number, picture, address, specialization, experience, phone_number, about })
+        axios.post('http://192.168.100.171:3000/user', { "email":email, "password":password, "role":role, "name":name, "number":number, "address":address, "specialization":specialization, "experience":experience, "phone_number":phone_number, "about":about })
         .then(response => {
           console.log(response.data);
-          navigation.navigate("DoctorProfile")
+          navigation.navigate("DoctorLogin")
         })
         .catch(error => {
-          console.error(error);
-        });
-      };
+            console.error(error)
+            // Additional error handling
+            if (error.response) {
+              // The request was made and the server responded with a status code
+              console.log("Response status:", error.response.status)
+              console.log("Response data:", error.response.data)
+            }
+          });
+      }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -206,7 +214,7 @@ const DoctorSignUp2 = ({ navigation, stepOneData }) => {
                         marginTop: 18,
                         marginBottom: 4,
                     }}
-                    onPress={()=>handleSignUp(name, address, specialization, experience, about)}
+                    onPress={()=>handleSignUp(name, address, specialization, Number(experience), about)}
                 />
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>

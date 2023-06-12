@@ -5,12 +5,11 @@ import { Ionicons } from "@expo/vector-icons";
 import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
 import axios from 'axios';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const DoctorLogin = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,18 +23,18 @@ const DoctorLogin = ({ navigation }) => {
       };      
 
     const handleLogin = (email, password) => {
-        axios
-        .post('http://192.168.100.171:3000/doctor', { email, password })
+        axios.post('http://192.168.100.171:3000/doctor', { email, password })
         .then(response => {
-          console.log(response.data);
-          setDataToLocalStorage("token",response.data.token)
-          setDataToLocalStorage("name",response.data.doctor.name)
+          console.log(response.data)
+          setDataToLocalStorage("token", response.data.token)
+          const doctor = JSON.stringify(response.data.doctor)
+          setDataToLocalStorage("doctor", doctor)
           navigation.navigate("DoctorProfile")
         })
         .catch(error => {
-          console.error(error);
-        });
-      };
+          console.error(error)
+        })
+      }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -157,7 +156,7 @@ const DoctorLogin = ({ navigation }) => {
                 }}>
                     <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("DoctorSignUp")}
+                        onPress={() => navigation.navigate("Register")}
                     >
                         <Text style={{
                             fontSize: 16,
@@ -167,18 +166,6 @@ const DoctorLogin = ({ navigation }) => {
                         }}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                onPress={() => navigation.navigate("EditDoctorProfile")}
-                style={{
-                    alignSelf: 'center',
-                    backgroundColor: COLORS.primary,
-                    borderRadius: 20,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                }}
-            >
-                <Text style={{ color: COLORS.white, fontSize: 14 }}>Profile</Text>
-            </TouchableOpacity>
             </View>
         </SafeAreaView>
     )

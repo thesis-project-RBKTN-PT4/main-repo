@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 const DoctorSignUp = ({ route }) => {
     const {role} = route.params
     const navigation = useNavigation()
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [email, setEmail] = useState('');
     const [licence, setLicence] = useState('');
     const [phone, setPhone] = useState('');
