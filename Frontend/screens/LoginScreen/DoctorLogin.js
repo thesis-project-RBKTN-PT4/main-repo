@@ -23,8 +23,7 @@ const DoctorLogin = ({ navigation }) => {
       };      
 
     const handleLogin = (email, password) => {
-        axios
-        .post('http://192.168.100.171:3000/doctor', { email, password })
+        axios.post('http://192.168.100.171:3000/doctor', { email, password })
         .then(response => {
           console.log(response.data)
           setDataToLocalStorage("token", response.data.token)
@@ -157,7 +156,7 @@ const DoctorLogin = ({ navigation }) => {
                 }}>
                     <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account?</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("DoctorSignUp")}
+                        onPress={() => navigation.navigate("Register")}
                     >
                         <Text style={{
                             fontSize: 16,
@@ -167,18 +166,6 @@ const DoctorLogin = ({ navigation }) => {
                         }}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                onPress={() => navigation.navigate("EditDoctorProfile")}
-                style={{
-                    alignSelf: 'center',
-                    backgroundColor: COLORS.primary,
-                    borderRadius: 20,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                }}
-            >
-                <Text style={{ color: COLORS.white, fontSize: 14 }}>Profile</Text>
-            </TouchableOpacity>
             </View>
         </SafeAreaView>
     )

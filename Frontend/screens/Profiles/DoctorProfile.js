@@ -78,7 +78,7 @@ const DoctorProfile = ({navigation}) => {
           {doctor.about}
         </Text>
         <Pressable
-        onPress={() => navigation.navigate("EditDoctorProfile", {doctor_id:doctor.id})}
+        onPress={() => navigation.navigate("EditDoctorProfile", {doctor:doctor})}
         >
           <Text style={styles.btn}>Edit Profile</Text>
         </Pressable>
