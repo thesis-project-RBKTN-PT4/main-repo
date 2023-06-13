@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const doctor = require("../Controllers/doctors");
 const patient = require("../Controllers/patients");
+const admin = require("../Controllers/admin");
 const auth = require("../middleware/doctor");
 
 router.post("/", doctor.loginDoctor);
+router.put("/:id",doctor.updateDoctorProfile);
 router.post("/workdays", auth.doctorAuth, doctor.addWorkingDays);
 router.post("/workhours", auth.doctorAuth, doctor.addWorkingHours);
 router
@@ -23,5 +25,6 @@ router.delete(
   auth.doctorAuth,
   doctor.deleteMultipleAppointmlents
 );
+router.get("/all", admin.doctorsList);
 
 module.exports = router;

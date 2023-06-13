@@ -13,18 +13,18 @@ import Home from './screens/Home/Home';
 import DoctorSignUp2 from './screens/SignupScreen/DoctorSignUp2';
 import Register from './screens/SignupScreen/Register';
 import Location from './components/Location';
+import TermsAndConditions from './components/TermsAndConditions'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
      <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown:false}} name="Location" component={Location} />
         <Stack.Screen options={{headerShown:false}} name="Register" component={Register} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />
         <Stack.Screen options={{headerShown:false}} name="DoctorSignUp" component={DoctorSignUp} />
         <Stack.Screen options={{headerShown:false}} name="DoctorSignUp2" component={DoctorSignUp2} />
-        {/* <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} /> */}
+        <Stack.Screen options={{headerShown:false}} name="TermsAndConditions" component={TermsAndConditions} />
+        <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />
         <Stack.Screen options={{headerShown:false}} name="DoctorProfile" component={DoctorProfile} />
         <Stack.Screen options={{headerShown:false}} name="DoctorDetails" component={DoctorDetails} />
         <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
