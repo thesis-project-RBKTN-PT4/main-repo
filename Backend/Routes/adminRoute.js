@@ -9,6 +9,8 @@ const auth = require("../middleware/admin");
 router.post("/login", admin.loginAdmin);
 router.get("/users", auth.adminAuth, admin.allusers);
 router.get("/doctors", auth.adminAuth, admin.doctorsList);
+router.get("/doctorsList", admin.doctorsList);
+
 router.get("/patients", auth.adminAuth, admin.patientsList);
 router.delete("/user/:id", auth.adminAuth, user.deleteUser);
 router

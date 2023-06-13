@@ -1,9 +1,4 @@
 
-
-
-
-
-
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NativeBaseProvider, Box, Drawer } from 'native-base';
@@ -18,9 +13,14 @@ import HomeDoctor from './screens/Home/HomeDoctor';
 import Home from './screens/Home/Home';
 import HomeTest from './screens/LoginScreen/HomeTest'
 import Otpscreen from './screens/LoginScreen/Otpscreen'
-import Search from './screens/Patient/Search';
-import DoctorList from './screens/Patient/Search';
-import DoctorCard from './screens/Patient/DoctorCard';
+import RoleSelection from './screens/LoginScreen/RoleSelection'
+import LoginScreen from './screens/Patient/LoginScreen';
+import RegisterScreen from './screens/Patient/RegisterScreen'
+import { useContext } from 'react';
+import {AuthContext} from './screens/Patient/AuthContext';
+import { AuthProvider } from './screens/Patient/AuthContext';
+import DoctorList  from './screens/Patient/DoctorList '
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,18 +30,38 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-      <Stack.Screen options={{ headerShown: false }} name="Search" component={DoctorList} />
-        <Stack.Screen options={{ headerShown: false }} name="DoctorProfile" component={DoctorProfile} />
-        <Stack.Screen options={{ headerShown: false }} name="DoctorDetails" component={DoctorDetails} />
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-        <Stack.Screen options={{ headerShown: false }} name="HomeDoctor" component={HomeDoctor} />
-        <Stack.Screen options={{ headerShown: false }} name="DoctorSignUp" component={DoctorSignUp} />
-        <Stack.Screen options={{ headerShown: false }} name="DoctorLogin" component={DoctorLogin} />
-        <Stack.Screen options={{ headerShown: false }} name="EditDoctorProfile" component={EditDoctorProfile} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <NativeBaseProvider>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          
+          
+        <Stack.Screen
+            name="DoctorList "
+            component={DoctorList }
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Otpscreen"
+            component={Otpscreen}
+            options={{ headerShown: false }}
+          />
+         
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
+  </NativeBaseProvider>
+
   );
 }
 

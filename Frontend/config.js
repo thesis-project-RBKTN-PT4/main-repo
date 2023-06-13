@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyAzVMoT5X1D75D-mBYxeyt-_D2AA6UscqM",
     authDomain: "hellodoctor-592d2.firebaseapp.com",
@@ -15,5 +14,7 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     
   }
-  
-  export default firebase;
+  const auth = firebase.auth()
+
+export { auth };
+ 
