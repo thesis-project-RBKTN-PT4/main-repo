@@ -1,5 +1,6 @@
 const db = require("../DataBase/models/index");
 const User = db.users;
+const Patient=db.patients;
 const Doctor = db.doctors;
 
 const WorkingHours = db.workinghours;
@@ -30,28 +31,25 @@ const MakeAppointment = async (req, res) => {
     where: { appointment_date, appointment_time, doctor_id },
   });
 
-  if (reserved.status == "booked") {
-    if (reserved && reserved.status === "Booked") {
-      res.status(400).send("appointment time is already reserved!");
+  if (reserved && reserved.status === "Booked") {
+    res.status(400).send("appointment time is already reserved!");
+  } else {
+    const appointment = await Appointment.create({
+      doctor_id,
+      appointment_date,
+      appointment_time,
+      status: "Booked",
+      patient_id,
+    });
+    if (appointment) {
+      res
+        .status(200)
+        .json({ appointment, message: "appointment booked sucessfully!" });
     } else {
-      const appointment = await Appointment.create({
-        doctor_id,
-        appointment_date,
-        appointment_time,
-        status: "Booked",
-        patient_id,
-      });
-      if (appointment) {
-        res
-          .status(200)
-          .json({ appointment, message: "appointment booked sucessfully!" });
-      } else {
-        res.status(400).send("Invalid or missing input !");
-      }
+      res.status(400).send("Invalid or missing input !");
     }
   }
 };
-
 const modifyAppointment = async (req, res) => {
   const {
     appointment_date,
@@ -169,22 +167,25 @@ const updateReview = async (req, res) => {
       .json({ myReview, message: "your review was updated successfully!" });
   } else res.status(400).send("missing or invalid inputs");
 };
-
 //update profile
 const updatePatientProfile = async (req, res) => {
   const id = req.params.id; // patient id
-  const { address, name, phone_number } = req.body;
+  const {
+    address,
+    name,
+    phone_number
+  } = req.body;
   const currentProfile = await Patient.findByPk(id);
   if (currentProfile) {
     const newProfile = await currentProfile.update({
       address,
-      name,
-      phone_number,
+    name,
+    phone_number
+      
     });
-    res
-      .status(200)
-      .json({ newProfile, message: "profile updated successfully" });
-  } else res.status(400).send("something wrong!");
+    res.status(200).json({newProfile,message:"profile updated successfully"})
+  }
+  else res.status(400).send('something wrong!')
 };
 
 module.exports = {
