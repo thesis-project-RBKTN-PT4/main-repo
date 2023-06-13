@@ -81,7 +81,7 @@ const addWorkingDays = async (req, res) => {
 };
 
 const deleteWorkingDays = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id; //day id
   const day = await WorkingDays.findByPk(id);
   if (day) {
     await day.destroy();
