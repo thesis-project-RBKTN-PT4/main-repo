@@ -16,7 +16,11 @@ import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
 
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
+
+
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -78,6 +82,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
