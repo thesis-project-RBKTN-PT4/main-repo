@@ -20,6 +20,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         <Stack.Screen
           options={{ headerShown: false }}
           name="DoctorLogin"
@@ -51,7 +52,6 @@ export default function App() {
           name="DoctorSignUp2"
           component={DoctorSignUp2}
         />
-        {/* <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} /> */}
 
         <Stack.Screen
           options={{ headerShown: false }}
@@ -73,6 +73,7 @@ export default function App() {
           name="EditDoctorProfile"
           component={EditDoctorProfile}
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
