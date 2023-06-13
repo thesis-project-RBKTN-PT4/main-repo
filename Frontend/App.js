@@ -15,28 +15,66 @@ import MedicalHistory from './screens/Profile Patient/MedicalHistory';
 import Home from './screens/Home/Home';
 import HomeTest from './screens/LoginScreen/HomeTest';
 
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { NativeBaseProvider, Box, Drawer } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DoctorLogin from "./screens/LoginScreen/DoctorLogin";
+import DoctorSignUp from "./screens/SignupScreen/DoctorSignUp";
+import EditDoctorProfile from "./screens/Profiles/EditDoctorProfile";
+import DoctorProfile from "./screens/Profiles/DoctorProfile";
+import DoctorDetails from "./screens/Profiles/DoctorDetails";
+import HomeDoctor from "./screens/Home/HomeDoctor";
+import Home from "./screens/Home/Home";
+import DoctorSignUp2 from "./screens/SignupScreen/DoctorSignUp2";
+import Register from "./screens/SignupScreen/Register";
+import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
+
+
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
-  
+
+
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
         <Stack.Screen
-          name="Profile"
-          component={Profile}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="EditPatient"
-          component={EditDoctorProfile}
-          options={{ headerShown: false }}
+          name="DoctorLogin"
+          component={DoctorLogin}
         />
         <Stack.Screen
           options={{ headerShown: false }}
           name="DoctorProfile"
           component={DoctorProfile}
         />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorDashboard"
+          component={DoctorDashboard}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Register"
+          component={Register}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorSignUp"
+          component={DoctorSignUp}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorSignUp2"
+          component={DoctorSignUp2}
+        />
+
         <Stack.Screen
           options={{ headerShown: false }}
           name="DoctorDetails"
@@ -54,24 +92,10 @@ export default function App() {
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="DoctorSignUp"
-          component={DoctorSignUp}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="DoctorLogin"
-          component={DoctorLogin}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
           name="EditDoctorProfile"
           component={EditDoctorProfile}
         />
-         <Stack.Screen
-          options={{ headerShown: false }}
-          name="MedicalHistory"
-          component={MedicalHistory}
-        />
+
       </Stack.Navigator>
 
       <BottomNavigation />
@@ -79,11 +103,12 @@ export default function App() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
