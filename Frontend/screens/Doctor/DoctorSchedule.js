@@ -1,8 +1,9 @@
-import { React, useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { React, useEffect, useState } from "react";
+import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import { Button, ListItem } from "react-native-elements";
 import Constants from "expo-constants";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DoctorSchedule = () => {
   const [workdays, setWorkdays] = useState([
@@ -14,6 +15,13 @@ const DoctorSchedule = () => {
     { day: "Saturday", active: false, start_time: "", end_time: "" },
     { day: "Sunday", active: false, start_time: "", end_time: "" },
   ]);
+
+  var id;
+  const fetchID = async () => {
+    const value = await AsyncStorage.getItem("doctor");
+    id = JSON.parse(value).id;
+    console.log(id);
+  };
 
   const handleWorkdays = (day) => {
     setWorkdays((prevTable) => {
@@ -39,22 +47,31 @@ const DoctorSchedule = () => {
     );
   };
 
-  const submitSchedule = () => {
+  const submitSchedule = async () => {
+    await fetchID();
     const selectedDays = workdays.filter((e) => e.active);
     console.log(selectedDays);
     selectedDays.map((e) => {
       axios
         .post("http://192.168.1.105:3000/doctor/workdays", {
           day: e.day,
-          doctor_id: 5,
+          doctor_id: id,
         })
         .then((res) => {
           axios.post("http://192.168.1.105:3000/doctor/workhours", {
             end_time: e.end_time,
             start_time: e.start_time,
             day_id: res.data.workingday.id,
-            doctor_id: 5,
+            doctor_id: id,
           });
+        })
+        .then(() => {
+          Alert.alert("Schedule submit", "Schedule submitted successfully!", [
+            {
+              text: "Ok",
+              onPress: () => console.log("OK"),
+            },
+          ]);
         })
         .catch((err) => {
           console.log(err);

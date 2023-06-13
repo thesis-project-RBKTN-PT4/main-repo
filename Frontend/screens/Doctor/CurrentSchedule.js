@@ -1,30 +1,35 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import DoctorSchedule from "./DoctorSchedule";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CurrentSchedule = () => {
   const [days, setDays] = useState([]);
   const [hours, setHours] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://192.168.1.105:3000/doctor/workdays/5`)
-      .then((res) => {
-        setDays(res.data.workdays);
-      })
-      .then(() => {
-        axios
-          .get(`http://192.168.1.105:3000/doctor/workhours/5`)
-          .then((res) => {
-            setHours(res.data.workhours);
-            console.log(hours);
-          });
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      const value = await AsyncStorage.getItem("doctor");
+      const id = JSON.parse(value).id;
+
+      try {
+        const res1 = await axios.get(
+          `http://192.168.1.105:3000/doctor/workdays/${id}`
+        );
+        setDays(res1.data.workdays);
+
+        const res2 = await axios.get(
+          `http://192.168.1.105:3000/doctor/workhours/${id}`
+        );
+        setHours(res2.data.workhours);
+      } catch (err) {
         console.log(err.message);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const deleteDay = (id) => {

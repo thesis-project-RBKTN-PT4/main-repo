@@ -18,7 +18,6 @@ router
 router.post("/appointment", auth.doctorAuth, patient.MakeAppointment);
 router
   .route("/appointments/:id")
-  .all(auth.doctorAuth)
   .get(doctor.allAppointments)
   .delete(patient.deleteAppointment);
 router.delete(

@@ -5,7 +5,7 @@ import moment from "moment";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const MyCalendar = () => {
+const MakeAppointment = () => {
   const [markedDates, setMarkedDates] = useState({});
   const [dayHours, setDayHours] = useState([]);
   const [hours, setHours] = useState([]);
@@ -28,17 +28,17 @@ const MyCalendar = () => {
           `http://192.168.1.105:3000/doctor/workhours/${id}`
         );
         setHours(res2.data.workhours);
-
         const res3 = await axios.get(
           `http://192.168.1.105:3000/doctor/appointments/${id}`
         );
         setAppointments(res3.data.appointmentList);
       } catch (err) {
-        alert(err.message);
+        console.log(err.message);
       }
     };
 
     fetchData();
+    console.log(hours, days);
   }, []);
 
   const handleAppointmentSelection = async (h) => {
@@ -49,13 +49,15 @@ const MyCalendar = () => {
         appointment_date: appointmentDay,
         appointment_time: h,
         doctor_id: id,
+        patient_id: 5,
       })
       .then((res) => {
-        alert(`hour ${h} blocked successfully!`);
+        alert(res.data.message);
       })
       .catch((err) => {
         alert(err.message);
       });
+
     setDayHours((prev) => prev.filter((e) => e !== h));
   };
   const weekDays = [
@@ -147,13 +149,14 @@ const MyCalendar = () => {
     } else {
       setDayHours(hoursInBetween);
     }
-
     setShow((prev) => !prev);
+
+    console.log(hoursInBetween);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Manage your availability </Text>
+      <Text style={styles.title}>Pick a day for your next appointment</Text>
       <View style={styles.calendarContainer}>
         <Calendar
           onDayPress={handleDateSelect}
@@ -167,7 +170,9 @@ const MyCalendar = () => {
       {show && (
         <View>
           <Text style={styles.heading}>
-            {dayHours.length ? "Block an hour" : "day is fully booked"}
+            {dayHours.length
+              ? "Available hours for an appointment"
+              : "Selected day is fully booked"}
           </Text>
           {dayHours.map((h, i) => (
             <TouchableOpacity
@@ -197,8 +202,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   calendarContainer: {
-    marginTop: 20,
-    width: 300,
+    marginTop: 30,
   },
   heading: {
     fontSize: 18,
@@ -216,4 +220,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyCalendar;
+export default MakeAppointment;
