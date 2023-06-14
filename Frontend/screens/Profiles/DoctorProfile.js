@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,25 +7,31 @@ import {
   StyleSheet,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
+import { ArrowBackIcon } from "react-native-vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import EditDoctorProfile from "./EditDoctorProfile";
+import DoctorLogin from "../LoginScreen/DoctorLogin";
 import COLORS from "../../components/Colors";
 import StarRating from "react-native-star-rating";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const DoctorProfile = ({navigation}) => {
   const [doctor,setDoctor] = useState({})
   
   const getDataFromLocalStorage = async (key) => {
     try {
-      const value = await AsyncStorage.getItem(key)
+      const value = await AsyncStorage.getItem(key);
       if (value !== null) {
         // console.log('Data retrieved successfully:', value)
         const parsedValue = JSON.parse(value)
         setDoctor(parsedValue)
       } else {
-        console.log('No data found for the given key')
+        console.log("No data found for the given key");
       }
     } catch (error) {
-      console.log('Error retrieving data:', error)
+      console.log("Error retrieving data:", error);
     }
   }
   getDataFromLocalStorage("doctor")
@@ -35,13 +41,14 @@ const DoctorProfile = ({navigation}) => {
      
       <Pressable
         onPress={() => navigation.navigate("DoctorLogin")}
+
         >
-        <Image
-        source={require("../../assets/retour.png")}
-        style={styles.return}
-      />
+          <Image
+            source={require("../../assets/retour.png")}
+            style={styles.return}
+          />
         </Pressable>
-        
+
         <Text style={styles.heading}>Profile</Text>
       </View>
 
@@ -77,6 +84,11 @@ const DoctorProfile = ({navigation}) => {
         <Text style={styles.infoText}>
           {doctor.about}
         </Text>
+
+        <Pressable onPress={() => navigation.navigate("DoctorDashboard")}>
+          <Text style={styles.btn}>Dashboard</Text>
+        </Pressable>
+     
         <Pressable
         onPress={() => navigation.navigate("EditDoctorProfile", {doctor:doctor})}
         >
@@ -106,7 +118,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     fontSize: 25,
-    marginTop: 70,
+    marginTop: 30,
     height: 38,
     color: COLORS.white,
     backgroundColor: "#1C6BA4",
@@ -162,10 +174,10 @@ const styles = StyleSheet.create({
   starStyle: {
     marginRight: -3,
   },
-  return:{
-    height:40,
-    width:40,
-    marginTop:35,
-    marginLeft:-180,
-  }
+  return: {
+    height: 40,
+    width: 40,
+    marginTop: 35,
+    marginLeft: -180,
+  },
 });
