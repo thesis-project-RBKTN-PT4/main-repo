@@ -22,7 +22,7 @@ const RegisterScreen = ({navigation,route}) => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const[adresse,setAdresse]=useState(null);
 
-  const {register,isLoading} = useContext(AuthContext);
+   const {register,isLoading} = useContext(AuthContext);
 
 
   const handleSignUp = () => {
@@ -37,7 +37,7 @@ const RegisterScreen = ({navigation,route}) => {
 
   return (
     <View style={styles.container}>
-      <Spinner visible={isLoading}/>
+       <Spinner visible={isLoading}/> 
       <View style={styles.wrapper}>
         <TextInput
           style={styles.input}
@@ -73,15 +73,16 @@ const RegisterScreen = ({navigation,route}) => {
           secureTextEntry
         />
 
-        <Button
-          title="Register"
-          onPress={() => {
-            register(name, email, password,adresse,role,phoneNumber);
-            navigation.navigate('Otpscreen',{phone:phoneNumber});
+<Button
+  title="Register"
+  onPress={() => {
+    register(name, email, password, adresse, role, phoneNumber);
+    navigation.navigate('Otpscreen', { phone: phoneNumber });
+    handleSignUp();
+    navigation.navigate('LoginScreen'); // Navigate to the Profile screen
+  }}
+/>
 
-            handleSignUp();
-          }}
-        />
 
         <View style={{flexDirection: 'row', marginTop: 20}}>
           <Text>Already have an accoutn? </Text>
