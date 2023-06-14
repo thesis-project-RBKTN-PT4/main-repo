@@ -60,7 +60,7 @@ const createUser = async (req, res) => {
     }
   } else {
     const validation = await Licence.findOne({
-      where: { number: number, doctor_name: name },
+      where: { number: number, doctor_name: name }, // licence's number
     });
     if (validation) {
       const doctor = await Doctor.create({

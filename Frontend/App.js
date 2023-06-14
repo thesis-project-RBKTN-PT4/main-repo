@@ -1,45 +1,108 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NativeBaseProvider,Box, Drawer  } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DoctorLogin from './screens/LoginScreen/DoctorLogin';
-import DoctorSignUp from './screens/SignupScreen/DoctorSignUp';
-import EditDoctorProfile from './screens/Profiles/EditDoctorProfile';
-import DoctorProfile from './screens/Profiles/DoctorProfile';
-import DoctorDetails from './screens/Profiles/DoctorDetails';
-import HomeDoctor from './screens/Home/HomeDoctor';
-import Home from './screens/Home/Home';
-import DoctorSignUp2 from './screens/SignupScreen/DoctorSignUp2';
-import Register from './screens/SignupScreen/Register';
-import Location from './components/Location';
-import TermsAndConditions from './components/TermsAndConditions'
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { NativeBaseProvider, Box, Drawer } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DoctorLogin from "./screens/LoginScreen/DoctorLogin";
+import DoctorSignUp from "./screens/SignupScreen/DoctorSignUp";
+import EditDoctorProfile from "./screens/Profiles/EditDoctorProfile";
+import DoctorProfile from "./screens/Profiles/DoctorProfile";
+import DoctorDetails from "./screens/Profiles/DoctorDetails";
+import HomeDoctor from "./screens/Home/HomeDoctor";
+import Home from "./screens/Home/Home";
+import DoctorSignUp2 from "./screens/SignupScreen/DoctorSignUp2";
+import Register from "./screens/SignupScreen/Register";
+import RegisterScreen from "./screens/Patient/RegisterScreen";
+import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
+import RoleSelection from "./screens/LoginScreen/RoleSelection"
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
+
+
+
   return (
-     <NavigationContainer>
+    <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={{headerShown:false}} name="Register" component={Register} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorSignUp" component={DoctorSignUp} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorSignUp2" component={DoctorSignUp2} />
-        <Stack.Screen options={{headerShown:false}} name="TermsAndConditions" component={TermsAndConditions} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorLogin" component={DoctorLogin} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorProfile" component={DoctorProfile} />
-        <Stack.Screen options={{headerShown:false}} name="DoctorDetails" component={DoctorDetails} />
-        <Stack.Screen options={{headerShown:false}} name="Home" component={Home} />
-        <Stack.Screen options={{headerShown:false}} name="HomeDoctor" component={HomeDoctor} />
-        <Stack.Screen options={{headerShown:false}} name="EditDoctorProfile" component={EditDoctorProfile} />
+      <Stack.Screen
+      options={{ headerShown: false }}
+      name="RoleSelection"
+      component={RoleSelection}
+    />
+    <Stack.Screen
+    options={{ headerShown: false }}
+    name="RegisterScreen"
+    component={RegisterScreen}
+  />
+      <Stack.Screen
+      options={{ headerShown: false }}
+      name="DoctorDashboard"
+      component={DoctorDashboard}
+    />
+      <Stack.Screen
+      options={{ headerShown: false }}
+      name="Home"
+      component={Home}
+    />
+      
+      <Stack.Screen
+      options={{ headerShown: false }}
+      name="Register"
+      component={Register}
+    />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorLogin"
+          component={DoctorLogin}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorProfile"
+          component={DoctorProfile}
+        />
+       
+
+      
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorSignUp"
+          component={DoctorSignUp}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorSignUp2"
+          component={DoctorSignUp2}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorDetails"
+          component={DoctorDetails}
+        />
+      
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeDoctor"
+          component={HomeDoctor}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="EditDoctorProfile"
+          component={EditDoctorProfile}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

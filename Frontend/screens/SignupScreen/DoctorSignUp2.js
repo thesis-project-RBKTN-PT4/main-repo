@@ -7,6 +7,7 @@ import COLORS from "../../components/Colors.js";
 import axios from "axios";
 import Location from "../../components/Location.js";
 import TermsAndConditions from "../../components/TermsAndConditions.js";
+
 const DoctorSignUp2 = ({ route, navigation }) => {
   const { stepOneData } = route.params;
   const [isChecked, setIsChecked] = useState(false);
@@ -24,17 +25,17 @@ const DoctorSignUp2 = ({ route, navigation }) => {
     phone_number = stepOneData.phone;
     role = stepOneData.role;
     // Include location latitude and longitude in the request
-    const { latitude, longitude } = selectedLocation;
-    axios
-      .post("http://192.168.1.17:3000/user", {
+ const { latitude, longitude } = selectedLocation || {};
+ 
+ axios.post("http://192.168.1.17:3000/user", {
         email: email,
         password: password,
         role: role,
         name: name,
         address: address,
         number: number,
-        latitude: latitude,
-        longitude: longitude,
+        x_coordinate: latitude,
+        y_coordinate: longitude,
         specialization: specialization,
         experience: experience,
         phone_number: phone_number,
