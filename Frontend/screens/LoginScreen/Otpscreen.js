@@ -24,7 +24,7 @@ firebase.initializeApp({
 
 const Otpscreen = ({route}) => {
     const {phone}=route.params
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState(phone);
     const [code, setCode] = useState('');
     const [verificationId, setVerificationId] = useState(null);
     const recaptchaVerifier = useRef(null);
@@ -68,10 +68,7 @@ const Otpscreen = ({route}) => {
                     appId: "1:111159112997:web:1145942b5a0123fa09d6cc"
                 }}
             />
-            <Text style={styles.otpText}>
-                Enter Your Phone Number
-
-            </Text>
+            
             <TextInput
                 value={phone}
                 onChangeText={setPhoneNumber}
