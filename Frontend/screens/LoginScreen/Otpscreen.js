@@ -46,7 +46,7 @@ const Otpscreen = ({route}) => {
         firebase.auth().signInWithCredential(credential)
           .then(() => {
             setCode('');
-            navigation.navigate('RoleSelection');
+            navigation.navigate('Login');
           })
           .catch((error) => {
             Alert.alert('Error', error.message);

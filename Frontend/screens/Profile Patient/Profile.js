@@ -5,7 +5,7 @@ import { fakeSettings } from './FakeSettings';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import EditProfileForm from './EditProfileForm';
 import DeleteAccountForm from './DeleteAccountForm';
-
+import BottomNavigation from ".././Profile Patient/BottomNavigation";
 import { NavigationContainer } from '@react-navigation/native';
 import MedicalHistory from './MedicalHistory';
 import Appointment from './Appointment'
@@ -65,47 +65,53 @@ const Profile = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* header */}
-      {/* ... */}
-      {editingProfile ? (
-        <EditProfileForm />
-      ) : deletingAccount ? (
-        <DeleteAccountForm />
-      ) : viewingHistory ? (
-        <MedicalHistory />
-      ) : viewingAppointments ? ( // Render Appointments component when viewingAppointments is true
-        <Appointment />
-      ) : (
-        <FlatList
-          data={fakeSettings}
-          keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                if (item.label === 'Editing Profile Info') {
-                  handleEditProfile();
-                } else if (item.label === 'Delete Account') {
-                  handleDeleteAccount();
-                } else if (item.label === 'History') {
-                  handleViewHistory();
-                } else if (item.label === 'My Appointments') { // Handle the 'My Appointments' option
-                  handleViewAppointments();
-                } else {
-                  handleLogout(item.id);
-                }
-              }}
-            >
-              <View style={styles.settingItemContainer}>
-                <Text style={styles.settingItemText}>{item.label}</Text>
-                {getIconName(item.label)}
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      )}
-    </View>
+  
+   <View style={styles.container}>
+   {/* header */}
+   {/* ... */}
+   {editingProfile ? (
+     <EditProfileForm />
+   ) : deletingAccount ? (
+     <DeleteAccountForm />
+   ) : viewingHistory ? (
+     <MedicalHistory />
+   ) : viewingAppointments ? ( // Render Appointments component when viewingAppointments is true
+     <Appointment />
+   ) : (
+     <FlatList
+       data={fakeSettings}
+       keyExtractor={(item) => item.id.toString()}
+       showsVerticalScrollIndicator={false}
+       renderItem={({ item }) => (
+         <TouchableOpacity
+           onPress={() => {
+             if (item.label === 'Editing Profile Info') {
+               handleEditProfile();
+             } else if (item.label === 'Delete Account') {
+               handleDeleteAccount();
+             } else if (item.label === 'History') {
+               handleViewHistory();
+             } else if (item.label === 'My Appointments') { // Handle the 'My Appointments' option
+               handleViewAppointments();
+             } else {
+               handleLogout(item.id);
+             }
+           }}
+         >
+           <View style={styles.settingItemContainer}>
+             <Text style={styles.settingItemText}>{item.label}</Text>
+             {getIconName(item.label)}
+           </View>
+         </TouchableOpacity>
+       )}
+     />
+   )}
+ 
+
+ 
+ <BottomNavigation />
+   </View>
+   
   );
 };
 

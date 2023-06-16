@@ -3,6 +3,7 @@ import React from "react";
 import * as Animatable from "react-native-animatable";
 import { MaterialIcons,Ionicons } from "@expo/vector-icons";
 import COLORS from "../../components/Colors";
+
 const Home = ({navigation}) => {
   return (
     <View style={[styles.container, { backgroundColor: COLORS.bg }]}>

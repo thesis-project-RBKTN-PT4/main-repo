@@ -16,12 +16,12 @@ const CurrentSchedule = () => {
 
       try {
         const res1 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workdays/${id}`
+          `http://192.168.1.17:3000/doctor/workdays/${id}`
         );
         setDays(res1.data.workdays);
 
         const res2 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workhours/${id}`
+          `http://192.168.1.17:3000/doctor/workhours/${id}`
         );
         setHours(res2.data.workhours);
       } catch (err) {
@@ -34,7 +34,7 @@ const CurrentSchedule = () => {
 
   const deleteDay = (id) => {
     axios
-      .delete(`http://192.168.1.105:3000/doctor/workdays/${id}`)
+      .delete(`http://192.168.1.17:3000/doctor/workdays/${id}`)
       .then((res) => {
         Alert.alert("Delete day", res.data.message, [
           { text: "OK", onPress: () => console.log("OK") },

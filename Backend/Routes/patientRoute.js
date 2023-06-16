@@ -14,5 +14,5 @@ router
   .get(patient.getMyReviews)
   .put(patient.updateReview)
   .delete(patient.deleteReview);
-router.put("/update/:id",patient.updatePatientProfile)
+router.put("/:id",patient.updatePatientProfile)
 module.exports = router;

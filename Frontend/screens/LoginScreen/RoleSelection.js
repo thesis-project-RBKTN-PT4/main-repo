@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Button, StyleSheet, Text, ImageBackground } from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
 
 const RoleSelection = ({ onRoleSelected, navigation }) => {
   const [selectedRole, setSelectedRole] = useState(null);
@@ -21,8 +22,8 @@ const RoleSelection = ({ onRoleSelected, navigation }) => {
 
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <Button title="i am  a patient" onPress={navigateToPatientSignUp} />
-          <Button title="i am a doctor"  onPress={navigateToDoctorSignUp}/>
+          <Button title="i am  a patient"  onPress={navigateToPatientSignUp}  color="#2e8b57"/>
+          <Button title="i am a doctor" onPress={navigateToDoctorSignUp} color="#0066b2"/>
           
         </View>
       </View>
@@ -35,10 +36,11 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     width: '100%',
-    height: '90%',
+    height: '101%',
     marginLeft:0,
   },
   container: {
+    marginBottom:24,
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     marginBottom: 20,
+    borderRadius:100,
   },
   selectedRoleText: {
     marginTop: 16,

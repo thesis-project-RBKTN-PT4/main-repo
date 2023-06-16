@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import DoctorSchedule from "./DoctorSchedule";
 import Button from "../../components/Button";
 import Appointment from "./Appointment";
+import COLORS from "../../components/Colors";
 
 const DoctorDashboard = () => {
   const [name, setName] = useState("");
@@ -42,7 +43,7 @@ const DoctorDashboard = () => {
             onPress={() => navigation.navigate("DoctorProfile")}
           >
             <Image
-              source={require("../../assets/doctor.png")} // Replace with your own logo image source
+              source={require("../../assets/doctor.png")} 
               style={styles.logo}
             />
           </TouchableOpacity>
@@ -51,7 +52,7 @@ const DoctorDashboard = () => {
       </View>
       <View style={styles.innerView}>
         <Button
-          title={!schedule ? "My Schedule" : "close schedule"}
+          title={!schedule ? "My Schedule" : "Close Schedule"}
           filled
           containerStyle={styles.button}
           onPress={() => {
@@ -62,7 +63,7 @@ const DoctorDashboard = () => {
           }}
         />
         <Button
-          title={!addSchedule ? "Add Schedule" : "finish"}
+          title={!addSchedule ? "Add Schedule" : "Finish"}
           filled
           containerStyle={styles.button}
           onPress={() => {
@@ -73,7 +74,7 @@ const DoctorDashboard = () => {
           }}
         />
         <Button
-          title={!myCalendar ? "My Calendar" : "close calendar"}
+          title={!myCalendar ? "My Calendar" : "Close Calendar"}
           filled
           containerStyle={styles.button}
           onPress={() => {
@@ -84,7 +85,7 @@ const DoctorDashboard = () => {
           }}
         />
         <Button
-          title={!appointments ? "My appointments" : "close list"}
+          title={!appointments ? "My Appointments" : "Close List"}
           filled
           containerStyle={styles.button}
           onPress={() => {
@@ -108,35 +109,15 @@ const DoctorDashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  buttonContainer: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    marginBottom: 16,
-  },
-  button: {
-    flex: 1,
-    marginTop: 40,
-    padding: 15,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-
-    marginTop: 60,
-  },
-  innerView: {
-    justifyContent: "space-between",
-    width: "70%",
-    height: 250,
+    backgroundColor: COLORS.bg,
   },
   header: {
+    marginTop:24,
     marginBottom: 30,
     height: 60,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "lightblue",
+    backgroundColor: COLORS.primary,
     borderRadius: 10,
   },
   headerContent: {
@@ -154,6 +135,20 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 18,
     fontWeight: "bold",
+    color: COLORS.white, 
+  },
+  innerView: {
+    justifyContent: "space-between",
+    width: "70%",
+    height: 250,
+    alignSelf: "center",
+    marginTop: 40,
+  },
+  button: {
+    padding: 15,
+    marginBottom: 16,
+    backgroundColor: COLORS.secondary, 
+    borderRadius: 8,
   },
 });
 

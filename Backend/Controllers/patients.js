@@ -187,6 +187,7 @@ const updatePatientProfile = async (req, res) => {
   else res.status(400).send('something wrong!')
 };
 
+
 module.exports = {
   updatePatientProfile,
   MakeAppointment,

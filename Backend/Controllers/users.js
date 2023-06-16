@@ -30,8 +30,11 @@ const createUser = async (req, res) => {
     phone_number,
     about,
   } = req.body;
+  const emailCheck =await User.findOne ({where : {email:email}}) 
+  if (emailCheck){ return res.status(400).send("email already exist")} 
   const hashPassword = await bcrypt.hash(password, 10);
 
+  
   const user = await User.create({
     email: email,
     name: name,
