@@ -1,29 +1,24 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import BottomNavigation from "./screens/Profile Patient/BottomNavigation";
-import DoctorLogin from "./screens/LoginScreen/DoctorLogin";
-import DoctorSignUp from "./screens/SignupScreen/DoctorSignUp";
-import Profile from "./screens/Profile Patient/Profile";
-import EditDoctorProfile from "./screens/Profiles/EditDoctorProfile";
-import DoctorProfile from "./screens/Profiles/DoctorProfile";
-import HomeDoctor from "./screens/Home/HomeDoctor";
-import MedicalHistory from "./screens/Profile Patient/MedicalHistory";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NativeBaseProvider, Box, Drawer } from "native-base";
-import DoctorDetails from "./screens/Profiles/DoctorDetails";
-import LoginScreen from "./screens/Patient/LoginScreen";
-import Home from "./screens/Home/Home";
-import DoctorSignUp2 from "./screens/SignupScreen/DoctorSignUp2";
-import Register from "./screens/SignupScreen/Register";
+import { StyleSheet } from 'react-native';
+import { NativeBaseProvider } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import DoctorLogin from './screens/LoginScreen/DoctorLogin';
+import DoctorSignUp from './screens/SignupScreen/DoctorSignUp';
+import DoctorSignUp2 from './screens/SignupScreen/DoctorSignUp2';
 import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
-import Otpscreen from "./screens/LoginScreen/Otpscreen";
-import RoleSelection from "./screens/LoginScreen/RoleSelection";
-import RegisterScreen from "./screens/Patient/RegisterScreen";
-import { AuthProvider } from "./screens/Patient/AuthContext";
-import DoctorList from "./screens/Patient/DoctorList "
-import Appointment from "./screens/Doctor/Appointment";
+import EditDoctorProfile from './screens/Profiles/EditDoctorProfile';
+import DoctorProfile from './screens/Profiles/DoctorProfile';
+import DoctorDetails from './screens/Profiles/DoctorDetails';
+import HomeDoctor from './screens/Home/HomeDoctor';
+import Home from './screens/Home/Home';
+import Otpscreen from './screens/LoginScreen/Otpscreen'
+import RoleSelection from './screens/LoginScreen/RoleSelection'
+import LoginScreen from './screens/Patient/LoginScreen';
+import RegisterScreen from './screens/Patient/RegisterScreen'
+import { AuthProvider } from './screens/Patient/AuthContext';
+import DoctorList from './screens/Patient/DoctorList ';
+import Profile from './screens/Profile Patient/Profile';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,43 +27,55 @@ export default function App() {
       <AuthProvider>
         <NavigationContainer>
           <Stack.Navigator>
-          <Stack.Screen
-          options={{ headerShown: false }}
-          name="DoctorDashboard"
-          component={DoctorDashboard}
-        />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="RoleSelection"
               component={RoleSelection}
             />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Otpscreen"
+              component={Otpscreen}
+            />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="Register"
               component={RegisterScreen}
             />
-           
-            <Stack.Screen
-            options={{ headerShown: false }}
-            name="Otpscreen"
-            component={Otpscreen}
-          />
-          <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={LoginScreen}
-        />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="Profile"
               component={Profile}
             />
 
-              <Stack.Screen
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Home"
+              component={Home}
+            />
+
+            <Stack.Screen
+              name="DoctorList "
+              component={DoctorList}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
               options={{ headerShown: false }}
               name="DoctorLogin"
               component={DoctorLogin}
             />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="DoctorProfile"
@@ -77,9 +84,15 @@ export default function App() {
 
             <Stack.Screen
               options={{ headerShown: false }}
+              name="DoctorDashboard"
+              component={DoctorDashboard}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
               name="DoctorSignUp"
               component={DoctorSignUp}
             />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="DoctorSignUp2"
@@ -91,28 +104,20 @@ export default function App() {
               name="DoctorDetails"
               component={DoctorDetails}
             />
-            <Stack.Screen
-            options={{ headerShown: false }}
-            name="Appointment"
-            component={Appointment}
-          />
-            <Stack.Screen
-            options={{ headerShown: false }}
-            name="DoctorList"
-            component={DoctorList}
-          />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="HomeDoctor"
               component={HomeDoctor}
             />
+
             <Stack.Screen
               options={{ headerShown: false }}
               name="EditDoctorProfile"
               component={EditDoctorProfile}
             />
-          </Stack.Navigator>
 
+          </Stack.Navigator>
         </NavigationContainer>
       </AuthProvider>
     </NativeBaseProvider>
@@ -125,5 +130,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  card: {
+    borderWidth: 1,
+    borderRadius: 15,
+    padding: 15,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
