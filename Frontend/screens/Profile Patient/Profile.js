@@ -5,10 +5,9 @@ import { fakeSettings } from './FakeSettings';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import EditProfileForm from './EditProfileForm';
 import DeleteAccountForm from './DeleteAccountForm';
-
-import { NavigationContainer } from '@react-navigation/native';
 import MedicalHistory from './MedicalHistory';
-import Appointment from './Appointment'
+import Appointment from './Appointment';
+import BottomNavigation from './BottomNavigation';
 
 const Profile = ({ navigation }) => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -105,6 +104,7 @@ const Profile = ({ navigation }) => {
           )}
         />
       )}
+      <BottomNavigation />
     </View>
   );
 };
