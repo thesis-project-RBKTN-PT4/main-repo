@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './style';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditProfileForm = () => {
   const navigation = useNavigation();
@@ -10,16 +11,18 @@ const EditProfileForm = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phone_number, setPhoneNumber] = useState('');
+  const [patients, setPatients] = useState([]);
 
   useEffect(() => {
     retrieveIdFromLocalStorage();
+    axios.get("http://192.168.100.171:3000/patient/allPatients").then(response=>setPatients(response.data.patients))
   }, []);
 
   const retrieveIdFromLocalStorage = async () => {
     try {
-      const savedId = await AsyncStorage.getItem('userId');
+      const savedId = await AsyncStorage.getItem('id');
       if (savedId) {
-        setId(savedId);
+        setId(Number(savedId));
       }
     } catch (error) {
       console.log('Error retrieving id from localStorage:', error);
@@ -34,14 +37,23 @@ const EditProfileForm = () => {
     }
   };
 
+  const validInput = (input) => {
+    return input !== ''
+  }
+
   const handleSave = () => {
-    axios
-      .put(`http://192.168.1.16:3000/patient/update/${id}`, { "address": address, "name": name, "phone_number": phone_number })
-      .then(response => {
-        const { address, name, phone_number } = response.data;
-        setName(name);
-        setAddress(address);
-        setPhoneNumber(phone_number);
+    console.log(id)
+    axios.put(`http://192.168.100.171:3000/patient/${id}`, { "address": address, "name": name, "phone_number": phone_number })
+      .then(() => {
+         let temp = patients.map(patient => {
+           console.log(patient)
+           if (patient.id === id) {
+             validInput(name) ? { ...patient, name: name } : null
+             validInput(address) ? { ...patient, address: address } : null
+             validInput(phone_number) ? { ...patient, phone_number: phone_number } : null
+           }
+         })
+         setPatients(temp)
         navigation.navigate('Profile');
       })
       .catch(error => {
@@ -80,17 +92,17 @@ const EditProfileForm = () => {
         keyboardType="phone-pad"
       />
 
-<TouchableOpacity
-  onPress={() => {
-    handleSave(patient.id, address, name, phone_number);
-    navigation.navigate("Profile");
-  }}
->
-  <Text>Save</Text>
-</TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          handleSave(id, address, name, phone_number);
+          navigation.navigate("Profile");
+        }}
+      >
+        <Text>Save</Text>
+      </TouchableOpacity>
 
-<Button title="Back" onPress={handleBack} />
-</View>
+      <Button title="Back" onPress={handleBack} />
+    </View>
 
   );
 };

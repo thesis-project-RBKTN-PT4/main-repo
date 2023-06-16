@@ -69,41 +69,6 @@ const RegisterScreen = ({ navigation, route }) => {
         />
       </View>
 
-<<<<<<< HEAD
-        <TextInput
-          style={styles.input}
-          value={email}
-          placeholder="Enter email"
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          value={adresse}
-          placeholder="Enter Adresse"
-          onChangeText={(text) => setAdresse(text)}
-        />
-        <TextInput
-          style={styles.input}
-          value={phoneNumber}
-          placeholder="Enter phone number"
-          onChangeText={setPhoneNumber}
-        />
-
-        <TextInput
-          style={styles.input}
-          value={password}
-          placeholder="Enter password"
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry
-        />
-
-        <Button
-          title="Register"
-          onPress={() => {
-            register(name, email, password, adresse, role, phoneNumber);
-            navigation.navigate('Otpscreen', { phone: phoneNumber });
-          }} />
-=======
       <View style={{ marginBottom: 12, marginTop: 12 }}>
         <View style={{
           width: "100%",
@@ -219,7 +184,6 @@ const RegisterScreen = ({ navigation, route }) => {
           />
         </View>
   
->>>>>>> e17f0bd0a563f2c577d1cf5302c6bdbe81256137
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <Text>Already have an account? </Text>
           
