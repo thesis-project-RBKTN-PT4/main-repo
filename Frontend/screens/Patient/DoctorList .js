@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native';
 import axios from 'axios';
 import DoctorCard from './DoctorCard';
-
+import BottomNavigation from '../Profile Patient/BottomNavigation';
 const DoctorList = ({ category }) => {
   const [doctors, setDoctors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,7 +12,7 @@ const DoctorList = ({ category }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.1.38:3000/admin/doctorsList'); 
+        const response = await axios.get('http://192.168.1.17:3000/admin/doctorsList'); 
         const data = response.data;
         setDoctors(data);
         setFilteredDoctors(data);
@@ -66,6 +66,7 @@ const DoctorList = ({ category }) => {
           )}
         />
       )}
+      <BottomNavigation style={styles.bottom} />
     </View>
   );
 };
@@ -91,6 +92,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
   },
+  bottom :{
+    position: 'absolute',
+  paddingBottom:60,
+  }
 });
 
 export default DoctorList;
