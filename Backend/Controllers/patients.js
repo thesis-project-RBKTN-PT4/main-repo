@@ -2,7 +2,6 @@ const db = require("../DataBase/models/index");
 const User = db.users;
 const Patient=db.patients;
 const Doctor = db.doctors;
-
 const WorkingHours = db.workinghours;
 const WorkingDays = db.workingdays;
 const Appointment = db.appointments;

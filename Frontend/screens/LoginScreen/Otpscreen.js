@@ -24,7 +24,7 @@ firebase.initializeApp({
 
 const Otpscreen = ({route}) => {
     const {phone}=route.params
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState(phone);
     const [code, setCode] = useState('');
     const [verificationId, setVerificationId] = useState(null);
     const recaptchaVerifier = useRef(null);

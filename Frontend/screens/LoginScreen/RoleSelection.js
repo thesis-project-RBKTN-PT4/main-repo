@@ -1,29 +1,26 @@
-import React, { useState } from 'react';
-import { View, Button, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import { View, Button, StyleSheet } from 'react-native';
 
-const RoleSelection = ({ onRoleSelected,navigation }) => {
-  const [selectedRole, setSelectedRole] = useState(null);
+const RoleSelection = ({ navigation }) => {
 
-  
-  
+  const navigateToDoctorSignUp = () => {
+    navigation.navigate('DoctorSignUp', { role: 'doctor' })
+  };
+
   const navigateToPatientSignUp = () => {
-    navigation.navigate('Register', {role:'patient'})
+    navigation.navigate('Register', { role: 'patient' })
   };
   return (
     <View style={styles.container}>
       <Button
         title="Patient"
         onPress={() => navigateToPatientSignUp()}
-        
-        
       />
+
       <Button
-        title="Doctor"
-        
-        
-      />
-      
-      
+        title='Register as a doctor'
+        onPress={() => navigateToDoctorSignUp()} />
+
     </View>
   );
 };
