@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import React from "react";
 import * as Animatable from "react-native-animatable";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons,Ionicons } from "@expo/vector-icons";
 import COLORS from "../../components/Colors";
+
 const Home = ({navigation}) => {
   return (
     <View style={[styles.container, { backgroundColor: COLORS.bg }]}>
@@ -28,12 +29,13 @@ const Home = ({navigation}) => {
         <View style={styles.cardHeaderContainer}>
           <Text style={styles.cardHeading}>Your Next Appointment</Text>
           <Pressable
-            // onPress={() => navigation.navigate("Appointments")}
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <Text style={styles.cardMore}>See All</Text>
-            <MaterialIcons name="read-more" size={24} color="black" />
-          </Pressable>
+  onPress={() => navigation.navigate("Appointments")} // Assurez-vous que "Appointments" est correctement configuré en tant que nom de route
+  style={{ flexDirection: "row", alignItems: "center" }}
+>
+  <Text style={styles.cardMore}>See All</Text>
+  <Ionicons name="read-more" size={24} color="black" />
+</Pressable>
+
         </View>
 
         {/* {appointments.length !== 0 && (

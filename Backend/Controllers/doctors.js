@@ -15,7 +15,7 @@ const loginDoctor = async (req, res) => {
   if (user) {
     if (bcrypt.compare(password, user.password)) {
       const doctor = await Doctor.findOne({ where: { user_id: user.id } });
-      const token = jwt.sign({ user_id: user.id }, "secret");
+      const token = jwt.sign({ user_id: user.id }, "doctorSecret");
       res
         .status(200)
         .json({ doctor, message: "Doctor logged in successfully!", token });
@@ -33,7 +33,6 @@ const updateDoctorProfile = async (req, res) => {
     address,
     specialization,
     experience,
-   
   } = req.body;
   const currentProfile = await Doctor.findByPk(id);
   if (currentProfile) {
@@ -45,11 +44,11 @@ const updateDoctorProfile = async (req, res) => {
       address,
       specialization,
       experience,
-      
     });
-    res.status(200).json({newProfile,message:"profile updated successfully"})
-  }
-  else res.status(400).send('something wrong!')
+    res
+      .status(200)
+      .json({ newProfile, message: "profile updated successfully" });
+  } else res.status(400).send("something wrong!");
 };
 // workdays controllers functions
 
@@ -82,7 +81,7 @@ const addWorkingDays = async (req, res) => {
 };
 
 const deleteWorkingDays = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id; //day id
   const day = await WorkingDays.findByPk(id);
   if (day) {
     await day.destroy();
@@ -145,8 +144,8 @@ const updateWorkingHours = async (req, res) => {
   });
   if (currentHours) {
     const updatedHours = await currentHours.update({
-       start_time,
-       end_time
+      start_time,
+      end_time,
     });
     res
       .status(200)
@@ -195,6 +194,5 @@ module.exports = {
   getWorkingDaysByDoctorId,
   getWorkingHoursByDoctorId,
   updateWorkingHours,
-  updateDoctorProfile
+  updateDoctorProfile,
 };
-

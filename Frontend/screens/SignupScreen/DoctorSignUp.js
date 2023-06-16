@@ -2,13 +2,29 @@ import { View, Text, Image, Pressable, TextInput, TouchableOpacity } from 'react
 import React, { useState } from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox"
-import Button from '../../components/Button.js';
 import COLORS from '../../components/Colors.js';
+import { useNavigation } from '@react-navigation/native';
 
-const DoctorSignUp = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
+const DoctorSignUp = ({ route }) => {
+    const {role} = route.params
+    const navigation = useNavigation()
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
+    const [email, setEmail] = useState('');
+    const [licence, setLicence] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+
+    const passedData = (email, licence, phone, password) => {
+        console.log(role)
+        return {
+            email:email,
+            licence:licence,
+            phone:phone,
+            password:password,
+            role:role
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -50,6 +66,8 @@ const DoctorSignUp = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={licence}
+                            onChangeText={setLicence}
                         />
                     </View>
                 </View>
@@ -75,6 +93,8 @@ const DoctorSignUp = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                     </View>
                 </View>
@@ -113,6 +133,8 @@ const DoctorSignUp = ({ navigation }) => {
                             style={{
                                 width: "80%"
                             }}
+                            value={phone}
+                            onChangeText={setPhone}
                         />
                     </View>
                 </View>
@@ -138,6 +160,8 @@ const DoctorSignUp = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={password}
+                            onChangeText={setPassword}
                         />
 
                         <TouchableOpacity
@@ -180,6 +204,8 @@ const DoctorSignUp = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={confirm}
+                            onChangeText={setConfirm}
                         />
 
                         <TouchableOpacity
@@ -201,28 +227,18 @@ const DoctorSignUp = ({ navigation }) => {
                     </View>
                 </View>
 
-                <View style={{
-                    flexDirection: 'row',
-                    marginVertical: 6
-                }}>
-                    <Checkbox
-                        style={{ marginRight: 8 }}
-                        value={isChecked}
-                        onValueChange={setIsChecked}
-                        color={isChecked ? COLORS.primary : undefined}
-                    />
-
-                    <Text>I aggree to the terms and conditions</Text>
-                </View>
-
-                <Button
-                    title="Sign Up"
-                    filled
-                    style={{
-                        marginTop: 18,
-                        marginBottom: 4,
-                    }}
-                />
+                <TouchableOpacity
+                onPress={() => navigation.navigate("DoctorSignUp2", {stepOneData:passedData(email,licence,phone,password)})}
+                style={{
+                    alignSelf: 'center',
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 20,
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
+                }}
+            >
+                <Text style={{ color: COLORS.white, fontSize: 14 }}>Next</Text>
+            </TouchableOpacity>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
                     <View

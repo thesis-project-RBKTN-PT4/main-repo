@@ -6,11 +6,6 @@ const Licence = db.licence;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const allusers = async (req, res) => {
-  const users = await User.findAll();
-  res.status(200).json(users);
-};
-
 const oneuser = async (req, res) => {
   const id = req.params.id;
   const user = await User.findByPk(id);
@@ -35,8 +30,11 @@ const createUser = async (req, res) => {
     phone_number,
     about,
   } = req.body;
+  const emailCheck =await User.findOne ({where : {email:email}}) 
+  if (emailCheck){ return res.status(400).send("email already exist")} 
   const hashPassword = await bcrypt.hash(password, 10);
 
+  
   const user = await User.create({
     email: email,
     name: name,
@@ -44,14 +42,14 @@ const createUser = async (req, res) => {
     password: hashPassword,
   });
 
+  // const Token = jwt.sign(user.id, "adminSecret");
+
   if (user.role == "patient") {
     const patient = await Patient.create({
-
       name: name,
       address: address,
       phone_number: phone_number,
-      userId: user.id
-
+      userId: user.id,
     });
     if (patient) {
       res
@@ -62,7 +60,7 @@ const createUser = async (req, res) => {
     }
   } else {
     const validation = await Licence.findOne({
-      where: { number: number, doctor_name: name },
+      where: { number: number, doctor_name: name }, // licence's number
     });
     if (validation) {
       const doctor = await Doctor.create({
@@ -77,7 +75,7 @@ const createUser = async (req, res) => {
         address: address,
       });
       if (doctor) {
-        const token = jwt.sign({ user_id: user.id }, "secret");
+        const token = jwt.sign({ user_id: user.id }, "doctorSecret");
         res
           .status(200)
           .send({ doctor, message: "doctor  registered successfully!", token });
@@ -95,11 +93,9 @@ const deleteUser = async (req, res) => {
   const user = await User.findByPk(id);
 
   if (user) {
-    await user.destroy()
-    res.status(200).send("User deleted successfully")
-  }  
-   else res.send("user not found") 
- 
+    await user.destroy();
+    res.status(200).send("User deleted successfully");
+  } else res.send("user not found");
 };
 
-module.exports = { allusers, oneuser, createUser, deleteUser };
+module.exports = { oneuser, createUser, deleteUser };
