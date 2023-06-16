@@ -1,91 +1,73 @@
-import React, {useContext, useState} from 'react';
-import {
-  Button,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from 'react-native';
-import {AuthContext}  from './AuthContext';
+import React, { useContext, useState } from 'react';
+import { Button, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { AuthContext } from './AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { auth } from '../../config.js'
+import { auth } from '../../config.js';
 
-
-
-
-const RegisterScreen = ({navigation,route}) => {
-  const {role} = route.params
+const RegisterScreen = ({ navigation, route }) => {
+  const { role } = route.params;
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
-  const[adresse,setAdresse]=useState(null);
-
-   const {register,isLoading} = useContext(AuthContext);
-
+  const [adresse, setAdresse] = useState(null);
+  const { register, isLoading } = useContext(AuthContext);
 
   const handleSignUp = () => {
     auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-            const user = userCredentials.user;
-            console.log('Registered with:', user.email);
-        })
-        .catch(error => alert(error.message))
-}
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log('Registered with:', user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <View style={styles.container}>
-       <Spinner visible={isLoading}/> 
+      <Spinner visible={isLoading} />
       <View style={styles.wrapper}>
         <TextInput
           style={styles.input}
           value={name}
           placeholder="Enter name"
-          onChangeText={text => setName(text)}
+          onChangeText={(text) => setName(text)}
         />
 
         <TextInput
           style={styles.input}
           value={email}
           placeholder="Enter email"
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
-         <TextInput
+        <TextInput
           style={styles.input}
           value={adresse}
           placeholder="Enter Adresse"
-          onChangeText={text => setAdresse(text)}
+          onChangeText={(text) => setAdresse(text)}
         />
         <TextInput
           style={styles.input}
           value={phoneNumber}
           placeholder="Enter phone number"
-          onChangeText={ setPhoneNumber}
+          onChangeText={setPhoneNumber}
         />
 
         <TextInput
           style={styles.input}
           value={password}
           placeholder="Enter password"
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
 
-<Button
-  title="Register"
-  onPress={() => {
-    register(name, email, password, adresse, role, phoneNumber);
-    navigation.navigate('Otpscreen', { phone: phoneNumber });
-    handleSignUp();
-    navigation.navigate('LoginScreen'); // Navigate to the Profile screen
-  }}
-/>
-
-
-        <View style={{flexDirection: 'row', marginTop: 20}}>
-          <Text>Already have an accoutn? </Text>
+        <Button
+          title="Register"
+          onPress={() => {
+            register(name, email, password, adresse, role, phoneNumber);
+            navigation.navigate('Otpscreen', { phone: phoneNumber });
+        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <Text>Already have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.link}>Login</Text>
           </TouchableOpacity>
@@ -97,7 +79,6 @@ const RegisterScreen = ({navigation,route}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#D4EDFF',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -106,7 +87,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   input: {
-    backgroundColor:'white',
+    backgroundColor: 'white',
     marginBottom: 12,
     borderWidth: 1,
     borderColor: '#bbb',

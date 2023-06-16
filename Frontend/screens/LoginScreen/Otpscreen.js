@@ -68,10 +68,7 @@ const Otpscreen = ({route}) => {
                     appId: "1:111159112997:web:1145942b5a0123fa09d6cc"
                 }}
             />
-            <Text style={styles.otpText}>
-                Enter Your Phone Number
-
-            </Text>
+            
             <TextInput
                 value={phone}
                 onChangeText={setPhoneNumber}
