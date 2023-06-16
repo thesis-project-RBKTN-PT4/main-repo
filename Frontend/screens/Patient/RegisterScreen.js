@@ -13,7 +13,6 @@ const RegisterScreen = ({ navigation, route }) => {
   const [password, setPassword] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [adresse, setAdresse] = useState(null);
-
   const { register, isLoading } = useContext(AuthContext);
 
   const handleSignUp = () => {
@@ -175,7 +174,7 @@ const RegisterScreen = ({ navigation, route }) => {
         
           <Button
           style={{ color: COLORS.white, fontSize: 14 }}
-            title="Next"
+            title="Register"
             onPress={() => {
               register(name, email, password, adresse, role, phoneNumber);
               navigation.navigate('Otpscreen', { phone: phoneNumber });
@@ -184,6 +183,7 @@ const RegisterScreen = ({ navigation, route }) => {
           />
         </View>
   
+
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <Text>Already have an account? </Text>
           

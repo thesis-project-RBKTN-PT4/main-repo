@@ -1,5 +1,3 @@
-
-
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NativeBaseProvider, Box, Drawer } from 'native-base';
@@ -37,6 +35,38 @@ export default function App() {
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
+
+      <Stack.Screen
+          options={{ headerShown: false }}
+          name="RoleSelection"
+          component={RoleSelection}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Otpscreen"
+          component={Otpscreen}
+        />
+         <Stack.Screen
+          options={{ headerShown: false }}
+          name="Register"
+          component={RegisterScreen}
+        />
+      <Stack.Screen
+          options={{ headerShown: false }}
+          name="Profile"
+          component={Profile}
+        />
+        <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+      <Stack.Screen
+          options={{ headerShown: false }}
+          name="Home"
+          component={Home}
+        />
+
         <Stack.Screen
             name="RoleSelection"
             component={RoleSelection}
@@ -51,6 +81,7 @@ export default function App() {
           
       
         <Stack.Screen
+
             name="Register"
             component={RegisterScreen}
             options={{ headerShown: false }}
@@ -94,16 +125,29 @@ export default function App() {
               component={DoctorSignUp2}
             />
 
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="DoctorDetails"
-              component={DoctorDetails}
-            />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorDetails"
+          component={DoctorDetails}
+        />
+        
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="HomeDoctor"
+          component={HomeDoctor}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="EditDoctorProfile"
+          component={EditDoctorProfile}
+        />
+
+      </Stack.Navigator>
+
+      <BottomNavigation />
+    </NavigationContainer>
     </AuthProvider>
   </NativeBaseProvider>
-
   );
 }
 
