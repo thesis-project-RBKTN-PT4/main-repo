@@ -79,7 +79,6 @@ const RegisterScreen = ({navigation,route}) => {
     register(name, email, password, adresse, role, phoneNumber);
     navigation.navigate('Otpscreen', { phone: phoneNumber });
     handleSignUp();
-    navigation.navigate('LoginScreen'); // Navigate to the Profile screen
   }}
 />
 

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomNavigation from './screens/Profile Patient/BottomNavigation';
@@ -21,7 +20,6 @@ import Register from "./screens/SignupScreen/Register";
 import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
 import RoleSelection from "./screens/LoginScreen/RoleSelection";
 import RegisterScreen from "./screens/Patient/RegisterScreen";
-import LoginScreen from "./screens/Patient/LoginScreen";
 import DoctorList from "./screens/Patient/DoctorList ";
 import Otpscreen from "./screens/LoginScreen/Otpscreen";
 import { AuthProvider } from './screens/Patient/AuthContext';

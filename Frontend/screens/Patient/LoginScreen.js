@@ -22,7 +22,7 @@ const LoginScreen = ({  }) => {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
         if (user) {
-          navigation.replace("home")
+          navigation.replace("Profile")
         }
       })
   

@@ -13,7 +13,7 @@ const RoleSelection = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Button
-        title="Patient"
+        title="Register as a patient"
         onPress={() => navigateToPatientSignUp()}
       />
 
