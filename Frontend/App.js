@@ -17,13 +17,13 @@ import LoginScreen from "./screens/Patient/LoginScreen";
 import Home from "./screens/Home/Home";
 import DoctorSignUp2 from "./screens/SignupScreen/DoctorSignUp2";
 import Register from "./screens/SignupScreen/Register";
-import RegisterScreen from "./screens/Patient/RegisterScreen";
 import DoctorDashboard from "./screens/Doctor/DoctorDashboard";
 import Otpscreen from "./screens/LoginScreen/Otpscreen";
 import RoleSelection from "./screens/LoginScreen/RoleSelection";
 import RegisterScreen from "./screens/Patient/RegisterScreen";
 import { AuthProvider } from "./screens/Patient/AuthContext";
-
+import DoctorList from "./screens/Patient/DoctorList "
+import Appointment from "./screens/Doctor/Appointment";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,6 +32,11 @@ export default function App() {
       <AuthProvider>
         <NavigationContainer>
           <Stack.Navigator>
+          <Stack.Screen
+          options={{ headerShown: false }}
+          name="DoctorDashboard"
+          component={DoctorDashboard}
+        />
             <Stack.Screen
               options={{ headerShown: false }}
               name="RoleSelection"
@@ -39,26 +44,27 @@ export default function App() {
             />
             <Stack.Screen
               options={{ headerShown: false }}
-              name="RegisterScreen"
+              name="Register"
               component={RegisterScreen}
             />
+           
+            <Stack.Screen
+            options={{ headerShown: false }}
+            name="Otpscreen"
+            component={Otpscreen}
+          />
+          <Stack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
             <Stack.Screen
               options={{ headerShown: false }}
-              name="DoctorDashboard"
-              component={DoctorDashboard}
-            />
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="Home"
-              component={Home}
+              name="Profile"
+              component={Profile}
             />
 
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="Register"
-              component={Register}
-            />
-            <Stack.Screen
+              <Stack.Screen
               options={{ headerShown: false }}
               name="DoctorLogin"
               component={DoctorLogin}
@@ -85,7 +91,16 @@ export default function App() {
               name="DoctorDetails"
               component={DoctorDetails}
             />
-
+            <Stack.Screen
+            options={{ headerShown: false }}
+            name="Appointment"
+            component={Appointment}
+          />
+            <Stack.Screen
+            options={{ headerShown: false }}
+            name="DoctorList"
+            component={DoctorList}
+          />
             <Stack.Screen
               options={{ headerShown: false }}
               name="HomeDoctor"
@@ -98,7 +113,6 @@ export default function App() {
             />
           </Stack.Navigator>
 
-          <BottomNavigation />
         </NavigationContainer>
       </AuthProvider>
     </NativeBaseProvider>

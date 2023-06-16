@@ -79,13 +79,12 @@ const RegisterScreen = ({navigation,route}) => {
     register(name, email, password, adresse, role, phoneNumber);
     navigation.navigate('Otpscreen', { phone: phoneNumber });
     handleSignUp();
-    navigation.navigate('LoginScreen'); // Navigate to the Profile screen
   }}
 />
 
 
         <View style={{flexDirection: 'row', marginTop: 20}}>
-          <Text>Already have an accoutn? </Text>
+          <Text>Already have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={styles.link}>Login</Text>
           </TouchableOpacity>

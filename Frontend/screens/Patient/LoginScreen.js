@@ -19,15 +19,15 @@ const LoginScreen = ({  }) => {
 
     const navigation = useNavigation()
 
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged(user => {
-        if (user) {
-          navigation.replace("home")
-        }
-      })
+    // useEffect(() => {
+    //   const unsubscribe = auth.onAuthStateChanged(user => {
+    //     if (user) {
+    //       navigation.replace("Profile")
+    //     }
+    //   })
   
-      return unsubscribe
-    }, [])
+    //   return unsubscribe
+    // }, [])
   
     const handleSignUp = () => {
         auth
@@ -44,6 +44,7 @@ const LoginScreen = ({  }) => {
             .then(userCredentials => {
                 const user = userCredentials.user;
                 console.log('Logged in with:', user.email);
+                navigation.navigate('Profile')
             })
             .catch(error => alert(error.message))
     }

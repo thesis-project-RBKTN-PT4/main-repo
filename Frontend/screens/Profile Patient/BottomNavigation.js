@@ -4,7 +4,7 @@ import { FontAwesome5, MaterialCommunityIcons } from 'react-native-vector-icons'
 import { useNavigation } from '@react-navigation/native';
 
 const BottomNavigation = () => {
-  const [activeTab, setActiveTab] = useState('HomeDoctor');
+  const [activeTab, setActiveTab] = useState('DoctorList');
   const navigation = useNavigation();
 
   const handleTabPress = (tabName) => {
@@ -35,18 +35,18 @@ const BottomNavigation = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.tabButton, activeTab === 'HomeDoctor' && styles.activeTab]}
+        style={[styles.tabButton, activeTab === 'DoctorList' && styles.activeTab]}
         onPress={() => {
-          handleTabPress('HomeDoctor');
-          navigation.navigate('HomeDoctor');
+          handleTabPress('DoctorList');
+          navigation.navigate('DoctorList');
         }}
       >
         <MaterialCommunityIcons
-          name={activeTab === 'HomeDoctor' ? 'home' : 'home'}
+          name={activeTab === 'DoctorList' ? 'home' : 'home'}
           size={24}
-          color={activeTab === 'HomeDoctor' ? '#1B82C4' : '#808080'}
+          color={activeTab === 'DoctorList' ? '#1B82C4' : '#808080'}
         />
-        <Text style={[styles.tabText, activeTab === 'HomeDoctor' && styles.activeTabText]}>HomeDoctor</Text>
+        <Text style={[styles.tabText, activeTab === 'DoctorList' && styles.activeTabText]}>Doctors</Text>
       </TouchableOpacity>
 
       <TouchableOpacity

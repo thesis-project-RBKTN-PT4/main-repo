@@ -7,7 +7,7 @@ const RoleSelection = ({ onRoleSelected,navigation }) => {
   
   
   const navigateToPatientSignUp = () => {
-    navigation.navigate('RegisterScreen', {role:'patient'})
+    navigation.navigate('Register', {role:'patient'})
   };
   const navigateToDoctorSignUp = () => {
     navigation.navigate('DoctorSignUp', {role:'doctor'})
