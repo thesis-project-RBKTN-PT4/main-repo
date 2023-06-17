@@ -41,19 +41,21 @@ const EditProfileForm = () => {
     return input !== ''
   }
 
-  const handleSave = () => {
+  const handleSave = (id, address, name, phone_number) => {
     console.log(id)
-    axios.put(`http://192.168.100.171:3000/patient/${id}`, { "address": address, "name": name, "phone_number": phone_number })
-      .then(() => {
-         let temp = patients.map(patient => {
-           console.log(patient)
-           if (patient.id === id) {
-             validInput(name) ? { ...patient, name: name } : null
-             validInput(address) ? { ...patient, address: address } : null
-             validInput(phone_number) ? { ...patient, phone_number: phone_number } : null
-           }
-         })
-         setPatients(temp)
+    body = { "address": address, "name": name, "phone_number": phone_number }
+    if(!validInput(name) && validInput(address) && validInput(phone_number)){
+      body = { "address": address, "phone_number": phone_number }
+    } 
+    if(!validInput(address) && validInput(name) && validInput(phone_number)){
+      body = { "name": name, "phone_number": phone_number }
+    }
+    if(!validInput(phone_number) && validInput(address) && validInput(name)){
+      body = { "address": address, "name": name }
+    }
+    axios.put(`http://192.168.100.171:3000/patient/${id}`, {...body})
+      .then(response => {
+         console.log(response.data)
         navigation.navigate('Profile');
       })
       .catch(error => {
