@@ -30,8 +30,11 @@ const createUser = async (req, res) => {
     phone_number,
     about,
   } = req.body;
+  const emailCheck =await User.findOne ({where : {email:email}}) 
+  if (emailCheck){ return res.status(400).send("email already exist")} 
   const hashPassword = await bcrypt.hash(password, 10);
 
+  
   const user = await User.create({
     email: email,
     name: name,
@@ -57,7 +60,7 @@ const createUser = async (req, res) => {
     }
   } else {
     const validation = await Licence.findOne({
-      where: { number: number, doctor_name: name },
+      where: { number: number, doctor_name: name }, // licence's number
     });
     if (validation) {
       const doctor = await Doctor.create({
