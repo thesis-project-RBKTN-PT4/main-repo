@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, StyleSheet, Text, ImageBackground } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 
-const RoleSelection = ({ onRoleSelected, navigation }) => {
-  const [selectedRole, setSelectedRole] = useState(null);
+const RoleSelection = ({ navigation }) => {
 
   const navigateToPatientSignUp = () => {
     navigation.navigate('Register', { role: 'patient' });

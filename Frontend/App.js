@@ -18,6 +18,8 @@ import RegisterScreen from './screens/Patient/RegisterScreen'
 import { AuthProvider } from './screens/Patient/AuthContext';
 import DoctorList from './screens/Patient/DoctorList ';
 import Profile from './screens/Profile Patient/Profile';
+import EditProfileForm from './screens/Profile Patient/EditProfileForm';
+import AppointmentList from './screens/Patient/AppointmentList';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,12 @@ export default function App() {
               options={{ headerShown: false }}
               name="Register"
               component={RegisterScreen}
+            />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="AppointmentList"
+              component={AppointmentList}
             />
 
             <Stack.Screen
@@ -115,6 +123,12 @@ export default function App() {
               options={{ headerShown: false }}
               name="EditDoctorProfile"
               component={EditDoctorProfile}
+            />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="EditProfileForm"
+              component={EditProfileForm}
             />
 
           </Stack.Navigator>

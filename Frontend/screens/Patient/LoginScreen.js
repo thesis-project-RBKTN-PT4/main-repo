@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../../components/Colors';
-
 import {
   Button,
   Text,
@@ -11,26 +10,54 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-
 import { AuthContext } from './AuthContext';
 import { auth } from '../../config.js';
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [patients, setPatients] = useState([]);
   const { isLoading, login } = useContext(AuthContext);
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigation.replace('home');
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       navigation.replace('Profile', {id:getPatientId(email)});
+  //     }
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
+
+  useEffect(() => {
+    axios.get("http://192.168.100.171:3000/patient/allUsers").then(response=>setUsers(response.data))
+    axios.get("http://192.168.100.171:3000/patient/allPatients").then(response=>setPatients(response.data.patients))
+  },[])
+
+  const getPatient = (mail)=>{
+    let user = users.filter(user=>user.email===mail)
+    if(user){
+    let userId = user[0].id
+    let patient = patients.filter(patient=>patient.userId===userId)
+    if(patient){
+    return patient[0]
+    }
+    }
+    }
+
+    const setDataToLocalStorage = async (key, value) => {
+      try {
+        await AsyncStorage.setItem(key, value);
+        console.log("Data set successfully!");
+      } catch (error) {
+        console.log("Error setting data:", error);
+      }
+    };
 
   const handleSignUp = () => {
     auth
@@ -48,6 +75,9 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
+        setDataToLocalStorage("patient", JSON.stringify(getPatient(user.email)))
+        navigation.replace('Profile');
+
       })
       .catch(error => alert(error.message));
   };

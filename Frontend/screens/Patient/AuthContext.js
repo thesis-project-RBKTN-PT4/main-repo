@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
    const register =(name,email,password,address,role,phone_number)=>{
     setIsLoading(true);
     axios
-    .post(`http://192.168.1.17:3000/user`, {
+    .post(`http://192.168.100.171:3000/user`, {
       name,
       email,
       password,

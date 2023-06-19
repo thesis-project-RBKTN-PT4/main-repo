@@ -20,16 +20,16 @@ const MakeAppointment = () => {
       id = JSON.parse(value).id;
       try {
         const res1 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workdays/${id}`
+          `http://192.168.100.171:3000/doctor/workdays/${id}`
         );
         setDays(res1.data.workdays);
 
         const res2 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workhours/${id}`
+          `http://192.168.100.171:3000/doctor/workhours/${id}`
         );
         setHours(res2.data.workhours);
         const res3 = await axios.get(
-          `http://192.168.1.105:3000/doctor/appointments/${id}`
+          `http://192.168.100.171:3000/doctor/appointments/${id}`
         );
         setAppointments(res3.data.appointmentList);
       } catch (err) {
@@ -45,7 +45,7 @@ const MakeAppointment = () => {
     const value = await AsyncStorage.getItem("doctor");
     const id = await JSON.parse(value).id;
     axios
-      .post("http://192.168.1.105:3000/patient/booking", {
+      .post("http://192.168.100.171:3000/patient/booking", {
         appointment_date: appointmentDay,
         appointment_time: h,
         doctor_id: id,
