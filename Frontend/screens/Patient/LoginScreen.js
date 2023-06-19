@@ -39,13 +39,13 @@ const LoginScreen = () => {
     axios.get("http://192.168.100.171:3000/patient/allPatients").then(response=>setPatients(response.data.patients))
   },[])
 
-  const getPatientId = (mail)=>{
+  const getPatient = (mail)=>{
     let user = users.filter(user=>user.email===mail)
     if(user){
     let userId = user[0].id
     let patient = patients.filter(patient=>patient.userId===userId)
     if(patient){
-    return patient[0].id
+    return patient[0]
     }
     }
     }
@@ -75,7 +75,7 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
-        setDataToLocalStorage("id", String(getPatientId(user.email)))
+        setDataToLocalStorage("patient", JSON.stringify(getPatient(user.email)))
         navigation.replace('Profile');
 
       })

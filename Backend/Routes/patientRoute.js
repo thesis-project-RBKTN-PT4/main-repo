@@ -8,7 +8,7 @@ router
   .route("/booking")
   .post(patient.MakeAppointment)
   .put(patient.modifyAppointment)
-  .delete(patient.deleteAppointment);
+router.delete("/booking/:id", patient.deleteAppointment);
 router.post("/review", patient.addreview);
 router
   .route("/review/:id")

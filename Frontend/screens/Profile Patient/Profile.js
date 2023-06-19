@@ -6,9 +6,7 @@ import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import EditProfileForm from './EditProfileForm';
 import DeleteAccountForm from './DeleteAccountForm';
 import BottomNavigation from ".././Profile Patient/BottomNavigation";
-import { NavigationContainer } from '@react-navigation/native';
-import MedicalHistory from './MedicalHistory';
-import Appointment from './Appointment';
+import AppointmentList from '../Patient/AppointmentList';
 
 const Profile = ({ navigation }) => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -35,15 +33,10 @@ const Profile = ({ navigation }) => {
     navigation.navigate('DeleteAccountForm');
   };
 
-  const handleViewHistory = () => {
-    setViewingHistory(true);
-    navigation.navigate('MedicalHistory');
+   const handleViewAppointments = () => {
+     setViewingAppointments(true);
+     navigation.navigate('AppointmentList');
   };
-
-  // const handleViewAppointments = () => {
-  //   setViewingAppointments(true);
-  //   navigation.navigate('Appointment');
-  // };
 
   const getIconName = (label) => {
     switch (label) {
@@ -51,10 +44,6 @@ const Profile = ({ navigation }) => {
         return <AntDesign name="edit" size={20} color="#003972" />;
       case 'Delete Account':
         return <Ionicons name="ios-trash-outline" size={20} color="#003972" />;
-      // case 'History':
-      //   return <MaterialIcons name="history" size={20} color="#003972" />;
-      case 'Notifications':
-        return <Ionicons name="ios-notifications-outline" size={20} color="#003972" />;
       case 'My Appointments':
         return <Ionicons name="ios-calendar-outline" size={20} color="#003972" />;
       case 'Logout':
@@ -73,10 +62,8 @@ const Profile = ({ navigation }) => {
         <EditProfileForm />
       ) : deletingAccount ? (
         <DeleteAccountForm />
-      ) : viewingHistory ? (
-        <MedicalHistory />
       ) : viewingAppointments ? ( // Render Appointments component when viewingAppointments is true
-        <Appointment />
+        <AppointmentList />
       ) : (
         <FlatList
           data={fakeSettings}
@@ -89,8 +76,6 @@ const Profile = ({ navigation }) => {
                   handleEditProfile();
                 } else if (item.label === 'Delete Account') {
                   handleDeleteAccount();
-                // } else if (item.label === 'History') {
-                //   handleViewHistory();
                 } else if (item.label === 'My Appointments') { // Handle the 'My Appointments' option
                   handleViewAppointments();
                 } else {

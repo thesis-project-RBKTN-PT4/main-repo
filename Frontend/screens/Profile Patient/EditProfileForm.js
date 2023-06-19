@@ -20,22 +20,15 @@ const EditProfileForm = () => {
 
   const retrieveIdFromLocalStorage = async () => {
     try {
-      const savedId = await AsyncStorage.getItem('id');
-      if (savedId) {
-        setId(Number(savedId));
+      const savedPatient = await AsyncStorage.getItem('patient');
+      if (savedPatient) {
+        setId(JSON.parse(savedPatient).id);
       }
     } catch (error) {
       console.log('Error retrieving id from localStorage:', error);
     }
   };
 
-  const saveIdToLocalStorage = async (id) => {
-    try {
-      await AsyncStorage.setItem('userId', id);
-    } catch (error) {
-      console.log('Error saving id to localStorage:', error);
-    }
-  };
 
   const validInput = (input) => {
     return input !== ''
@@ -43,17 +36,18 @@ const EditProfileForm = () => {
 
   const handleSave = (id, address, name, phone_number) => {
     console.log(id)
-    body = { "address": address, "name": name, "phone_number": phone_number }
-    if(!validInput(name) && validInput(address) && validInput(phone_number)){
-      body = { "address": address, "phone_number": phone_number }
+    body = { }
+    if(validInput(name)){
+      body.name = name
     } 
-    if(!validInput(address) && validInput(name) && validInput(phone_number)){
-      body = { "name": name, "phone_number": phone_number }
+    if(validInput(address)){
+      body.address = address
     }
-    if(!validInput(phone_number) && validInput(address) && validInput(name)){
-      body = { "address": address, "name": name }
+    if(validInput(phone_number)){
+      body.phone_number = phone_number
     }
-    axios.put(`http://192.168.100.171:3000/patient/${id}`, {...body})
+    console.log(body)
+    axios.put(`http://192.168.100.171:3000/patient/${id}`, body)
       .then(response => {
          console.log(response.data)
         navigation.navigate('Profile');
@@ -97,13 +91,13 @@ const EditProfileForm = () => {
       <TouchableOpacity
         onPress={() => {
           handleSave(id, address, name, phone_number);
-          navigation.navigate("Profile");
+          navigation.navigate("Profile")
         }}
       >
         <Text>Save</Text>
       </TouchableOpacity>
 
-      <Button title="Back" onPress={handleBack} />
+      <Button title="Back" onPress={navigation.navigate("Profile")} />
     </View>
 
   );
