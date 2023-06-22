@@ -12,7 +12,7 @@ const Appointment = () => {
       const value = await AsyncStorage.getItem("doctor");
       id = JSON.parse(value).id;
       const bookings = await axios.get(
-        `http://192.168.1.17:3000/doctor/appointments/${id}`
+        `http://192.168.100.171:3000/doctor/appointments/${id}`
       );
       const list = bookings.data.appointmentList;
       setAppointments(list);
@@ -21,7 +21,7 @@ const Appointment = () => {
   }, []);
   const deleteAppointment = (id) => {
     axios
-      .delete(`http://192.168.1.17:3000/doctor/appointments/${id}`)
+      .delete(`http://192.168.100.171:3000/doctor/appointments/${id}`)
       .then((res) => {
         alert(res.data);
       })

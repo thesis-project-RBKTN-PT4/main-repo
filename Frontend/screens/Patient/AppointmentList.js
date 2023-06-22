@@ -1,96 +1,97 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
-import COLORS from "../../components/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import COLORS from "../../components/Colors";
 
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
-  const [upcommingApp, setUpcomingApp] = useState([]);
-  const [pastApp, setPastApp] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState("All");
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  var patient_ID;
   useEffect(() => {
     const fetchData = async () => {
-      const user = await AsyncStorage.getItem('userInfo')
-      patient_ID = JSON.parse(user).patient.id;
-      console.log(patient_ID, user)
-      axios
-        .get(`http://192.168.100.171:3000/patient/booking/${patient_ID}`).then(res => setAppointments(res.data.appointments))
-        .catch((err) => console.log(err.message));
-      appointments?.sort(
-        (a, b) => new Date(a.appointment_date) - new Date(b.appointment_date)
-      );
+      const user = await AsyncStorage.getItem("userInfo");
+      const patient_ID = JSON.parse(user).patient.id;
+
+      try {
+        const response = await axios.get(`http://192.168.100.171:3000/patient/booking/${patient_ID}`);
+        const fetchedAppointments = response.data.appointments;
+
+        setAppointments(fetchedAppointments);
+        fetchedAppointments.sort(
+          (a, b) => new Date(a.appointment_date) - new Date(b.appointment_date)
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
     };
+
     fetchData();
   }, []);
-  console.log(appointments, "test")
-  const onCancel = (id) => {
-    console.log(id)
-    axios
-      .delete(`http://192.168.100.171:3000/patient/booking/${id}`)
-      .then((res) => {
-        alert(res.data);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-    setAppointments((prev) => {
-      return prev.filter((item) => item.id !== id);
-    });
-  };
 
   useEffect(() => {
-    setUpcomingApp(appointments.filter(e => e.appointment_date >= new Date().toISOString().slice(0, 10)));
-    setPastApp(appointments.filter(e => e.appointment_date < new Date().toISOString().slice(0, 10)));
-  }, []);
+    const currentDate = new Date().toISOString().slice(0, 10);
 
-  let mapArray = []
-  if(selectedValue===""){
-    mapArray = []
-  }
-  else if(selectedValue==="All"){
-    mapArray = [...appointments]
-  }
-  else if(selectedValue==="Passed appointments"){
-    mapArray = [...pastApp]
-  }
-  else{
-    mapArray = [...upcommingApp]
-  }
+    const upcomingAppointments = appointments.filter(
+      (appointment) => appointment.appointment_date >= currentDate
+    );
+
+    const pastAppointments = appointments.filter(
+      (appointment) => appointment.appointment_date < currentDate
+    );
+
+    if (selectedValue === "All") {
+      setFilteredAppointments(appointments);
+    } else if (selectedValue === "Passed appointments") {
+      setFilteredAppointments(pastAppointments);
+    } else {
+      setFilteredAppointments(upcomingAppointments);
+    }
+  }, [appointments, selectedValue]);
+
+  const onCancel = async (id) => {
+    try {
+      await axios.delete(`http://192.168.100.171:3000/patient/booking/${id}`);
+      alert("Appointment canceled successfully.");
+
+      setAppointments((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment.id !== id)
+      );
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <ScrollView style={{marginTop:50}}>
+    <ScrollView style={{ marginTop: 50 }}>
       <View>
-        <Picker style={styles.picker}
+        <Picker
+          style={styles.picker}
           selectedValue={selectedValue}
           onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item style={styles.pickerItem} label="All" value="All" />
-          <Picker.Item style={styles.pickerItem} label="Passed appointments" value="Passed appointments" />
-          <Picker.Item style={styles.pickerItem} label="Future appointments" value="Future appointments" />
+          <Picker.Item
+            style={styles.pickerItem}
+            label="Passed appointments"
+            value="Passed appointments"
+          />
+          <Picker.Item
+            style={styles.pickerItem}
+            label="Future appointments"
+            value="Future appointments"
+          />
         </Picker>
       </View>
-      {mapArray?.map((item) => (
+      {filteredAppointments.map((item) => (
         <View style={styles.container} key={item.id}>
-          <Text style={styles.time}>
-            Appointment's time: {item.appointment_time}
-          </Text>
-          <Text style={styles.details}>
-            Appointment's date: {item.appointment_date}
-          </Text>
+          <Text style={styles.time}>Appointment's time: {item.appointment_time}</Text>
+          <Text style={styles.details}>Appointment's date: {item.appointment_date}</Text>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => onCancel(item.id)}
-          >
+          <TouchableOpacity style={styles.button} onPress={() => onCancel(item.id)}>
             <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
         </View>

@@ -5,7 +5,8 @@ import moment from "moment";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const MakeAppointment = () => {
+const MakeAppointment = ({route}) => {
+  const {doctor_id} = route.params;
   const [markedDates, setMarkedDates] = useState({});
   const [dayHours, setDayHours] = useState([]);
   const [hours, setHours] = useState([]);
@@ -42,14 +43,14 @@ const MakeAppointment = () => {
   }, []);
 
   const handleAppointmentSelection = async (h) => {
-    const value = await AsyncStorage.getItem("doctor");
+    const value = await AsyncStorage.getItem("patient");
     const id = await JSON.parse(value).id;
     axios
       .post("http://192.168.100.171:3000/patient/booking", {
         appointment_date: appointmentDay,
         appointment_time: h,
-        doctor_id: id,
-        patient_id: 5,
+        doctor_id: doctor_id,
+        patient_id: id,
       })
       .then((res) => {
         alert(res.data.message);
@@ -58,16 +59,16 @@ const MakeAppointment = () => {
         alert(err.message);
       });
 
-    setDayHours((prev) => prev.filter((e) => e !== h));
+    setDayHours((prev) => prev?.filter((e) => e !== h));
   };
   const weekDays = [
-    { day: "Monday", index: 2 },
-    { day: "Wednesday", index: 4 },
-    { day: "Friday", index: 6 },
-    { day: "Sunday", index: 1 },
-    { day: "Thursday", index: 5 },
-    { day: "Tuesday", index: 3 },
-    { day: "Saturday", index: 0 },
+    { day: "Monday", index: 1 },
+    { day: "Wednesday", index: 3 },
+    { day: "Friday", index: 5 },
+    { day: "Sunday", index: 0 },
+    { day: "Thursday", index: 4 },
+    { day: "Tuesday", index: 2 },
+    { day: "Saturday", index: 6 },
   ];
   // const workdays = [
   //   { day: "Monday", hours: ["08:00", "12:00"] },
@@ -135,11 +136,11 @@ const MakeAppointment = () => {
       hoursInBetween.push(current.format(format));
       current.add(1, "hour");
     }
-    const targetDay = appointments.filter(
+    const targetDay = appointments?.filter(
       (e) => e.appointment_date === day.dateString
     );
-    if (targetDay.length > 0) {
-      const avHours = hoursInBetween.filter(
+    if (targetDay?.length > 0) {
+      const avHours = hoursInBetween?.filter(
         (h) =>
           !targetDay.find(
             (e) => e.appointment_time.split(":").slice(0, -1).join(":") === h

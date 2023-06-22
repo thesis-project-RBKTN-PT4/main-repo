@@ -20,17 +20,17 @@ const MyCalendar = () => {
       id = JSON.parse(value).id;
       try {
         const res1 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workdays/${id}`
+          `http://192.168.100.171:3000/doctor/workdays/${id}`
         );
         setDays(res1.data.workdays);
 
         const res2 = await axios.get(
-          `http://192.168.1.105:3000/doctor/workhours/${id}`
+          `http://192.168.100.171:3000/doctor/workhours/${id}`
         );
         setHours(res2.data.workhours);
 
         const res3 = await axios.get(
-          `http://192.168.1.105:3000/doctor/appointments/${id}`
+          `http://192.168.100.171:3000/doctor/appointments/${id}`
         );
         setAppointments(res3.data.appointmentList);
       } catch (err) {
@@ -45,7 +45,7 @@ const MyCalendar = () => {
     const value = await AsyncStorage.getItem("doctor");
     const id = await JSON.parse(value).id;
     axios
-      .post("http://192.168.1.105:3000/patient/booking", {
+      .post("http://192.168.100.171:3000/patient/booking", {
         appointment_date: appointmentDay,
         appointment_time: h,
         doctor_id: id,
@@ -59,13 +59,13 @@ const MyCalendar = () => {
     setDayHours((prev) => prev.filter((e) => e !== h));
   };
   const weekDays = [
-    { day: "Monday", index: 2 },
-    { day: "Wednesday", index: 4 },
-    { day: "Friday", index: 6 },
-    { day: "Sunday", index: 1 },
-    { day: "Thursday", index: 5 },
-    { day: "Tuesday", index: 3 },
-    { day: "Saturday", index: 0 },
+    { day: "Monday", index: 1 },
+    { day: "Wednesday", index: 3 },
+    { day: "Friday", index: 5 },
+    { day: "Sunday", index: 0 },
+    { day: "Thursday", index: 4 },
+    { day: "Tuesday", index: 2 },
+    { day: "Saturday", index: 6 },
   ];
   // const workdays = [
   //   { day: "Monday", hours: ["08:00", "12:00"] },
@@ -133,10 +133,12 @@ const MyCalendar = () => {
       hoursInBetween.push(current.format(format));
       current.add(1, "hour");
     }
-    const targetDay = appointments.filter(
+    console.log(appointments,"appointments")
+    const targetDay = appointments?.filter(
       (e) => e.appointment_date === day.dateString
     );
-    if (targetDay.length > 0) {
+    console.log(hoursInBetween,"hoursInBetween")
+    if (targetDay?.length > 0) {
       const avHours = hoursInBetween.filter(
         (h) =>
           !targetDay.find(

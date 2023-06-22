@@ -175,6 +175,7 @@ const RegisterScreen = ({ navigation, route }) => {
         
           <Button
           style={{ color: COLORS.white, fontSize: 14 }}
+          color={COLORS.primary}
             title="Next"
             onPress={() => {
               register(name, email, password, adresse, role, phoneNumber);

@@ -11,21 +11,20 @@ router
   .get(doctor.getWorkingDaysByDoctorId)
   .delete(doctor.deleteWorkingDays);
 router.put("/:id",doctor.updateDoctorProfile);
-router.post("/workdays", auth.doctorAuth, doctor.addWorkingDays);
-router.post("/workhours", auth.doctorAuth, doctor.addWorkingHours);
+router.post("/workdays", doctor.addWorkingDays);
+router.post("/workhours", doctor.addWorkingHours);
 
 router
   .route("/workhours/:id")
   .get(doctor.getWorkingHoursByDoctorId)
   .put(doctor.updateWorkingHours);
-router.post("/appointment", auth.doctorAuth, patient.MakeAppointment);
+router.post("/appointment", patient.MakeAppointment);
 router
   .route("/appointments/:id")
   .get(doctor.allAppointments)
   .delete(patient.deleteAppointment);
 router.delete(
   "/appointments",
-  auth.doctorAuth,
   doctor.deleteMultipleAppointmlents
 );
 router.get("/all", admin.doctorsList);
