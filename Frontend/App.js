@@ -20,6 +20,7 @@ import DoctorList from './screens/Patient/DoctorList ';
 import Profile from './screens/Profile Patient/Profile';
 import EditProfileForm from './screens/Profile Patient/EditProfileForm';
 import AppointmentList from './screens/Patient/AppointmentList';
+import MakeAppointment from './screens/Patient/MakeAppointment';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,7 +74,7 @@ export default function App() {
             />
 
             <Stack.Screen
-              name="DoctorList "
+              name="DoctorList"
               component={DoctorList}
               options={{ headerShown: false }}
             />
@@ -129,6 +130,12 @@ export default function App() {
               options={{ headerShown: false }}
               name="EditProfileForm"
               component={EditProfileForm}
+            />
+
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="MakeAppointment"
+              component={MakeAppointment}
             />
 
           </Stack.Navigator>

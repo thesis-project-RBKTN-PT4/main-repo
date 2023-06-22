@@ -27,7 +27,7 @@ const DoctorSignUp2 = ({ route, navigation }) => {
     // Include location latitude and longitude in the request
  const { latitude, longitude } = selectedLocation || {};
  
- axios.post("http://192.168.1.17:3000/user", {
+ axios.post("http://192.168.100.171:3000/user", {
         email: email,
         password: password,
         role: role,
