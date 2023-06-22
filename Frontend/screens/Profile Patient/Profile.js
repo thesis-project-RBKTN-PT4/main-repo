@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, Pressable, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import styles from './style';
 import { fakeSettings } from './FakeSettings';
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import EditProfileForm from './EditProfileForm';
 import DeleteAccountForm from './DeleteAccountForm';
 import BottomNavigation from ".././Profile Patient/BottomNavigation";
 import AppointmentList from '../Patient/AppointmentList';
+import COLORS from "../../components/Colors";
 
 const Profile = ({ navigation }) => {
   const [editingProfile, setEditingProfile] = useState(false);
@@ -33,9 +34,9 @@ const Profile = ({ navigation }) => {
     navigation.navigate('DeleteAccountForm');
   };
 
-   const handleViewAppointments = () => {
-     setViewingAppointments(true);
-     navigation.navigate('AppointmentList');
+  const handleViewAppointments = () => {
+    setViewingAppointments(true);
+    navigation.navigate('AppointmentList');
   };
 
   const getIconName = (label) => {
@@ -92,12 +93,34 @@ const Profile = ({ navigation }) => {
         />
       )}
 
+      <Pressable onPress={() => navigation.navigate("DoctorList")}>
+        <Text style={style.btn}>Find a doctor</Text>
+      </Pressable>
 
+      {/* <Pressable
+        onPress={() => navigation.navigate("EditDoctorProfile", { doctor: doctor })}
+      >
+        <Text style={style.btn}>Edit Profile</Text>
+      </Pressable> */}
 
-      <BottomNavigation />
     </View>
 
   );
 };
 
 export default Profile;
+
+const style = StyleSheet.create({
+  btn: {
+    fontSize: 25,
+    marginTop: 30,
+    height: 38,
+    color: COLORS.white,
+    backgroundColor: "#1C6BA4",
+    alignContent: "center",
+    textAlign: "center",
+    borderRadius: 40,
+    fontWeight: "bold",
+    marginLeft: 6,
+  },
+});

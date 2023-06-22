@@ -3,8 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert,ImageBackgro
 import React, { useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import backgroundImg from '../../assets/logoDoc.jpg';
-
-import RoleSelection from './RoleSelection';
+import COLORS from '../../components/Colors';
 
 
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
@@ -130,13 +129,16 @@ const styles = StyleSheet.create({
     },
     sendVerification: {
         padding: 20,
-        backgroundColor: '#3498db',
+        backgroundColor: COLORS.primary,
         borderRadius: 10,
+
+
     },
     sendCode: {
         padding: 20,
-        backgroundColor: '#3498db',
+        backgroundColor: COLORS.primary,
         borderRadius: 10,
+
     },
     buttonText: {
         color: '#fff',

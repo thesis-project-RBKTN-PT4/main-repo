@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native';
 import axios from 'axios';
 import DoctorCard from './DoctorCard';
-import BottomNavigation from '../Profile Patient/BottomNavigation';
-const DoctorList = ({ category }) => {
+
+const DoctorList = ({ navigation, category }) => {
   const [doctors, setDoctors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDoctors, setFilteredDoctors] = useState([]);
@@ -12,8 +12,9 @@ const DoctorList = ({ category }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.1.17:3000/admin/doctorsList'); 
-        const data = response.data;
+        const response = await axios.get('http://192.168.100.171:3000/admin/doctorsList'); 
+        const data = response.data.doctors;
+        console.log(data,"data")
         setDoctors(data);
         setFilteredDoctors(data);
       } catch (error) {
@@ -39,6 +40,7 @@ const DoctorList = ({ category }) => {
 
   const handleAppointment = (doctor) => {
     console.log(`Appointment booked with Dr. ${doctor.name}`);
+    navigation.navigate("MakeAppointment", {doctor_id:doctor.id})
   };
 
   return (
@@ -66,7 +68,6 @@ const DoctorList = ({ category }) => {
           )}
         />
       )}
-      <BottomNavigation style={styles.bottom} />
     </View>
   );
 };

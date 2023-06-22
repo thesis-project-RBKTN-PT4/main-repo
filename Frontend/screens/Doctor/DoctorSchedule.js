@@ -53,17 +53,17 @@ const DoctorSchedule = () => {
     console.log(selectedDays);
     selectedDays.map((e) => {
       axios
-        .post("http://192.168.1.17:3000/doctor/workdays", {
+        .post("http://192.168.100.171:3000/doctor/workdays", {
           day: e.day,
           doctor_id: id,
         })
         .then((res) => {
-          axios.post("http://192.168.1.17:3000/doctor/workhours", {
+          axios.post("http://192.168.100.171:3000/doctor/workhours", {
             end_time: e.end_time,
             start_time: e.start_time,
             day_id: res.data.workingday.id,
             doctor_id: id,
-          });
+          })
         })
         .then(() => {
           Alert.alert("Schedule submit", "Schedule submitted successfully!", [

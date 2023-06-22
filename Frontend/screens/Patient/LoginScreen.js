@@ -153,7 +153,8 @@ const LoginScreen = () => {
               <Button
                 title="Login"
                 onPress={handleLogin}
-                style={{ marginTop: 18, marginBottom: 4, }}
+                style={{ marginTop: 18, marginBottom: 4,}}
+                color={COLORS.primary}
               />
             </View>
 
